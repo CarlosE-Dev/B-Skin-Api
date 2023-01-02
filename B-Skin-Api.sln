@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B-Skin-Api", "B-Skin-Api\B-Skin-Api.csproj", "{5BE5B97F-372F-4072-BD7C-9EAC16EC13EF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B-Skin-Api.Web", "B-Skin-Api\B-Skin-Api.Web.csproj", "{5BE5B97F-372F-4072-BD7C-9EAC16EC13EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B-Skin-Api.Domain", "B-Skin-Api.Domain\B-Skin-Api.Domain.csproj", "{20FA6E9F-DE47-4F82-8716-DFA890AE470F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B-Skin-Api.Data", "B-Skin-Api.Data\B-Skin-Api.Data.csproj", "{CE31B7A2-81B9-4794-B0D9-87186C318709}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{5BE5B97F-372F-4072-BD7C-9EAC16EC13EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BE5B97F-372F-4072-BD7C-9EAC16EC13EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BE5B97F-372F-4072-BD7C-9EAC16EC13EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20FA6E9F-DE47-4F82-8716-DFA890AE470F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20FA6E9F-DE47-4F82-8716-DFA890AE470F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20FA6E9F-DE47-4F82-8716-DFA890AE470F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20FA6E9F-DE47-4F82-8716-DFA890AE470F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE31B7A2-81B9-4794-B0D9-87186C318709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE31B7A2-81B9-4794-B0D9-87186C318709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE31B7A2-81B9-4794-B0D9-87186C318709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE31B7A2-81B9-4794-B0D9-87186C318709}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

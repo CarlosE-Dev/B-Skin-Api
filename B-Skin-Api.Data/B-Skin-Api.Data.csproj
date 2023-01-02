@@ -5,4 +5,14 @@
     <RootNamespace>B_Skin_Api.Data</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="MySql.Data" Version="8.0.31" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\B-Skin-Api.Domain\B-Skin-Api.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

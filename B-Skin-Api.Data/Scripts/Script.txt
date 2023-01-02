@@ -1,0 +1,37 @@
+﻿
+If dump not avaiable, follow this sentence in order
+==================================================================================================================================
+
+
+-- Create DATABASE
+
+CREATE DATABASE `BSKIN_DB` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+
+==================================================================================================================================
+
+
+-- Create T-Shirt Table
+
+CREATE TABLE BS_TSHIRTS (
+  `ID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(30) NOT NULL,
+  `DESCRIPTION` VARCHAR(200) NOT NULL,
+  `PRICE` DECIMAL(10,2) NOT NULL,
+  `QUANTITY_IN_STOCK` INT DEFAULT 0,
+  `CREATED_ON` DATE NOT NULL,
+  PRIMARY KEY (`ID`)
+);
+
+
+==================================================================================================================================
+
+
+-- Insert T-Shirts 
+
+INSERT INTO bs_tshirts 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Batman T-Shirt", "Marvel Shirt for teens", 10.99, 10, CURRENT_TIMESTAMP)
+
+
+==================================================================================================================================

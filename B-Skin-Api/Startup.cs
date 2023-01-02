@@ -1,3 +1,7 @@
+using B_Skin_Api.Data.Dapper;
+using B_Skin_Api.Data.Repositories;
+using B_Skin_Api.Data.UnitOfWork;
+using B_Skin_Api.Domain.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +27,10 @@ namespace B_Skin_Api.Web
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "B_Skin_Api", Version = "v1" });
             });
+
+            services.AddScoped<DbSession>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ITShirtRepository, TShirtRepository>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
