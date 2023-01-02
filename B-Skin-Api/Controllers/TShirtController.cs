@@ -9,11 +9,9 @@ namespace B_Skin_Api.Web.Controllers
     [ApiController]
     public class TShirtController : Controller
     {
-        private readonly IUnitOfWork _uow;
         private readonly ITShirtRepository _repo;
-        public TShirtController(IUnitOfWork uow, ITShirtRepository repo)
+        public TShirtController(ITShirtRepository repo)
         {
-            _uow = uow;
             _repo = repo;
         }
         [Route("list")]
