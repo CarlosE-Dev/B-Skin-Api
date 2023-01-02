@@ -14,8 +14,8 @@ namespace B_Skin_Api.Web.Controllers
         {
             _repo = repo;
         }
-        [Route("list")]
-        [HttpGet]
+
+        [HttpGet("list")]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _repo.GetAll());
