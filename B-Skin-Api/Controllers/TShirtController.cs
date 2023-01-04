@@ -15,10 +15,14 @@ namespace B_Skin_Api.Web.Controllers
             _repo = repo;
         }
 
-        [HttpGet("list")]
-        public async Task<IActionResult> GetAll(bool onlyActives)
+        [HttpPost("list")]
+        public async Task<IActionResult> GetAll(bool onlyActives, PaginationModel pagination)
         {
-            return Ok(await _repo.GetAll(onlyActives));
+            return Ok(
+            await _repo.GetAll(
+                onlyActives,
+                pagination
+            ));
         }
 
         [HttpGet("details/{id:long}")]
