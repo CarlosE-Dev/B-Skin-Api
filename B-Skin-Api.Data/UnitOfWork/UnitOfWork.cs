@@ -1,10 +1,5 @@
 ﻿using B_Skin_Api.Data.Dapper;
 using B_Skin_Api.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace B_Skin_Api.Data.UnitOfWork
 {

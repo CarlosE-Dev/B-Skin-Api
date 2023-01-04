@@ -15,7 +15,7 @@ CREATE DATABASE `BSKIN_DB` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAU
 
 CREATE TABLE BS_TSHIRTS (
   `ID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `NAME` VARCHAR(30) NOT NULL,
+  `NAME` VARCHAR(50) NOT NULL,
   `DESCRIPTION` VARCHAR(200) NOT NULL,
   `PRICE` DECIMAL(10,2) NOT NULL,
   `QUANTITY_IN_STOCK` INT DEFAULT 0,
@@ -29,9 +29,87 @@ CREATE TABLE BS_TSHIRTS (
 
 -- Insert T-Shirts 
 
-INSERT INTO bs_tshirts 
+INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Batman T-Shirt", "Marvel Shirt for teens", 10.99, 10, CURRENT_TIMESTAMP)
+VALUES("Batman T-Shirt", "Marvel T-Shirt for teens", 19.99, 10, CURRENT_TIMESTAMP)
+
+
+INSERT INTO BS_TSHIRTS 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Simple White T-Shirt", "100% cotton T-Shirt", 10.99, 100, CURRENT_TIMESTAMP)
+
+
+INSERT INTO BS_TSHIRTS 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Skateboarding T-Shirt", "T-Shirt for sports", 22.99, 70, CURRENT_TIMESTAMP)
+
+
+INSERT INTO BS_TSHIRTS 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Long Sleeve T-Shirt", "Simple long sleeve T-Shirt", 14.99, 30, CURRENT_TIMESTAMP)
+
+
+INSERT INTO BS_TSHIRTS 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Short Sleeve T-Shirt", "simple short sleeve T-Shirt", 12.99, 40, CURRENT_TIMESTAMP)
+
+INSERT INTO BS_TSHIRTS 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Simple Black T-Shirt", "100% cotton, made in USA", 10.99, 50, CURRENT_TIMESTAMP)
+
+INSERT INTO BS_TSHIRTS 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Simple Blue T-Shirt", "100% cotton, made in CANADA", 12.99, 30, CURRENT_TIMESTAMP)
+
+INSERT INTO BS_TSHIRTS 
+(NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
+VALUES("Notorious Big T-Shirt", "Black T-Shirt with B.I.G picture", 30.99, 3, CURRENT_TIMESTAMP)
+
+
+
+
+==================================================================================================================================
+
+
+-- Table Configuration
+
+ALTER TABLE BS_TSHIRTS ADD COLUMN IS_ACTIVE BIT(1) DEFAULT 1
+
+
+==================================================================================================================================
+
+-- Create Providers Table
+
+CREATE TABLE BS_PROVIDERS (
+  `ID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `NAME` VARCHAR(50) NOT NULL,
+  `DESCRIPTION` VARCHAR(200) NOT NULL,
+  `DOCUMENT` VARCHAR(14) NOT NULL,
+  `CREATED_ON` DATE NOT NULL,
+  `IS_ACTIVE` BIT(1) DEFAULT 1,
+  PRIMARY KEY (`ID`)
+);
+
+==================================================================================================================================
+
+
+-- Insert Providers
+
+INSERT INTO BS_PROVIDERS
+(NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
+VALUES('Louis Vuitton', 'a French luxury fashion house and company founded in 1854 by Louis Vuitton.', '18479166000106', CURRENT_TIMESTAMP, 1);
+
+INSERT INTO BS_PROVIDERS
+(NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
+VALUES('Renner', 'A largest Brazilian department stores clothing company, headquartered in Porto Alegre - Rio Grande do Sul, Brazil.', '12479166000106', CURRENT_TIMESTAMP, 1);
+
+INSERT INTO BS_PROVIDERS
+(NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
+VALUES('Nike', 'An American multinational corporation that is engaged in the design, development, manufacturing, and worldwide marketing and sales of footwear, apparel, equipment, accessories, and services.', '12469166000106', CURRENT_TIMESTAMP, 1);
+
+INSERT INTO BS_PROVIDERS
+(NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
+VALUES('Puma', 'A German multinational corporation that designs and manufactures athletic and casual footwear, apparel and accessories.', '13469166000106', CURRENT_TIMESTAMP, 1);
 
 
 ==================================================================================================================================

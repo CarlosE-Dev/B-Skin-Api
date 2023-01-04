@@ -30,7 +30,8 @@ namespace B_Skin_Api.Web
 
             services.AddScoped<DbSession>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ITShirtRepository, TShirtRepository>();
+            services.AddScoped<ITShirtRepository, TShirtsRepository>();
+            services.AddScoped<IProviderRepository, ProviderRepository>();
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
