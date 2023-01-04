@@ -21,7 +21,7 @@ namespace B_Skin_Api.Data.Repositories
             _onlyActivesQuery = " AND BSTS.IS_ACTIVE = TRUE";
         }
 
-        public async Task<IEnumerable<TShirtModel>> GetAll(bool onlyActives = true)
+        public async Task<IEnumerable<TShirtModel>> GetAll(bool onlyActives = true, PaginationModel pagination = null)
         {
             var query = $@"
                         SELECT
@@ -40,10 +40,15 @@ namespace B_Skin_Api.Data.Repositories
             if (onlyActives)
                 query += _onlyActivesQuery;
 
+            PaginationModel filter = null;
+
+            if (pagination.Page != null && pagination.PageSize != null)
+            {
+                filter = new PaginationModel(pagination.Page, pagination.PageSize, null);
+                query += $" LIMIT {filter.PageSize} OFFSET {filter.Offset}";
+            }
+
             var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
-            
-            if (!result.Any())
-                throw new Exception("The query returned no results.");
 
             return result;
         }
