@@ -4,7 +4,6 @@ using B_Skin_Api.Domain.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace B_Skin_Api.Data.Repositories
@@ -42,10 +41,10 @@ namespace B_Skin_Api.Data.Repositories
 
             PaginationModel filter = null;
 
-            if (pagination.Page != null && pagination.PageSize != null)
+            if (pagination.Page != 0 && pagination.PageSize != 0)
             {
                 filter = new PaginationModel(pagination.Page, pagination.PageSize, null);
-                query += $" LIMIT {filter.PageSize} OFFSET {filter.Offset}";
+                query += $@" LIMIT {filter.PageSize} OFFSET {filter.Offset}";
             }
 
             var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
