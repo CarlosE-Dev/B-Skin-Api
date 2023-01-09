@@ -57,5 +57,15 @@ namespace B_Skin_Api.Web.Controllers
             await _repo.Update(id, entity);
             return NoContent();
         }
+
+        [HttpPost("search/{query}")]
+        public async Task<IActionResult> SearchByKeyWord([FromRoute] string query, int resultLimit)
+        {
+            return Ok(
+            await _repo.SearchTShirtsByKeyWords(
+                query,
+                resultLimit
+            ));
+        }
     }
 }

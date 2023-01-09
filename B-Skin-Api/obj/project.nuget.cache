@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7cuMOa8MVu+gjSKnns4JPHvY06m5Oj2cYODDPW+ZlEBGIvpUIWPLwRkzYEh+qzsvv0YDdUUC8pNxVF//y1P5ng==",
+  "dgSpecHash": "1VCNNwNSeyWAqUGQTkht/HiSqzCr047pwX4Bb9QVqxCu4aAWvc/5KNVEk3y48sjk4h02Bns3A9ooI5KdkPvLXg==",
   "success": true,
-  "projectFilePath": "C:\\Dev\\B-Skin-Api\\B-Skin-Api\\B-Skin-Api.Web.csproj",
+  "projectFilePath": "C:\\Dev\\B-Skin-Api\\b-skin-api\\B-Skin-Api.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Carlos\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\Carlos\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",

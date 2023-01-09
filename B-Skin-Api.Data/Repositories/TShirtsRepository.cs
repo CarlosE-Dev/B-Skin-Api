@@ -4,7 +4,6 @@ using B_Skin_Api.Domain.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace B_Skin_Api.Data.Repositories
@@ -42,11 +41,34 @@ namespace B_Skin_Api.Data.Repositories
 
             PaginationModel filter = null;
 
-            if (pagination.Page != null && pagination.PageSize != null)
+            if (pagination.Page != 0 && pagination.PageSize != 0)
             {
                 filter = new PaginationModel(pagination.Page, pagination.PageSize, null);
-                query += $" LIMIT {filter.PageSize} OFFSET {filter.Offset}";
+                query += $@" LIMIT {filter.PageSize} OFFSET {filter.Offset}";
             }
+
+            var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
+
+            return result;
+        }
+        public async Task<IEnumerable<TShirtModel>> SearchTShirtsByKeyWords(string querySearch, int resultLimit)
+        {
+            var query = $@"
+                        SELECT
+                            ID                      AS Id,
+                            NAME                    AS ModelName,
+                            DESCRIPTION             AS ModelDescription,
+                            PRICE                   AS Price,
+                            QUANTITY_IN_STOCK       AS QuantityInStock,
+                            CREATED_ON              AS CreatedOn,
+                            IS_ACTIVE               AS IsActive
+                        FROM
+                            BS_TSHIRTS BSTS
+                            WHERE BSTS.NAME LIKE '{ "%" + querySearch + "%" }'
+                            AND BSTS.IS_ACTIVE = TRUE
+                            ORDER BY LOCATE( '{ querySearch }', NAME )
+                            LIMIT {resultLimit}
+                        ";
 
             var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
 
@@ -54,7 +76,7 @@ namespace B_Skin_Api.Data.Repositories
         }
 
         public async Task<TShirtModel> GetById(long id, bool onlyActives = true)
-        {
+        { 
 
             var query = $@"
                         SELECT
@@ -69,7 +91,7 @@ namespace B_Skin_Api.Data.Repositories
                             BS_TSHIRTS BSTS
                         WHERE BSTS.ID = @id
                         ";
-
+                
             if (onlyActives)
                 query += _onlyActivesQuery;
 

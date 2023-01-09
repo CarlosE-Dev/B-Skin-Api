@@ -41,12 +41,8 @@ namespace B_Skin_Api.Data.Repositories
 
             var result = await _session.Connection.QueryAsync<Provider>(query, null, _session.Transaction);
 
-            if (!result.Any())
-                throw new Exception("The query returned no results.");
-
             return result;
         }
-
         public async Task<Provider> GetById(long id, bool onlyActives = true)
         {
             var query = $@"
@@ -71,6 +67,152 @@ namespace B_Skin_Api.Data.Repositories
                 throw new Exception("Provider not found!");
 
             return result;
+        }
+
+        public async Task InactivateById(long id)
+        {
+            var query = $@"
+                        UPDATE 
+                            BS_PROVIDERS
+                        SET 
+                            IS_ACTIVE = 0
+                        WHERE 
+                            ID = @id
+                        ";
+
+            await GetById(id);
+
+            try
+            {
+                _uow.BeginTransaction();
+                await _session.Connection.ExecuteScalarAsync(query, new { id }, _session.Transaction);
+                _uow.Commit();
+            }
+            catch (Exception e)
+            {
+                _uow.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+            }
+        }
+
+        public async Task ReactivateById(long id)
+        {
+            var query = $@"
+                        UPDATE 
+                            BS_PROVIDERS
+                        SET 
+                            IS_ACTIVE = 1
+                        WHERE 
+                            ID = @id
+                        ";
+
+            await GetById(id, false);
+
+            try
+            {
+                _uow.BeginTransaction();
+                await _session.Connection.ExecuteScalarAsync(query, new { id }, _session.Transaction);
+                _uow.Commit();
+            }
+            catch (Exception e)
+            {
+                _uow.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                _uow.Dispose();
+            }
+        }
+
+        public async Task<Provider> Create(Provider entity)
+        {
+            var query = $@" INSERT INTO 
+                            BS_PROVIDERS
+                                (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
+                            VALUES
+                                (@Name, @Description, @Document, @CreatedOn, @IsActive)
+                        ";
+            try
+            {
+                _uow.BeginTransaction();
+                await _session.Connection.ExecuteScalarAsync(query, entity, _session.Transaction);
+                _uow.Commit();
+            }
+            catch (Exception e)
+            {
+                _uow.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                _uow.Dispose();
+            }
+
+            var createdEntity = await GetByName(entity.Name);
+
+            if (createdEntity == null)
+                throw new Exception("Provider not found!");
+
+            return createdEntity;
+        }
+
+        public async Task Update(long id, Provider entity)
+        {
+            var currentModel = await GetById(id);
+            currentModel.Name = entity.Name;
+            currentModel.Description = entity.Description;
+            currentModel.Document = entity.Document;
+            currentModel.IsActive = entity.IsActive;
+
+            var query = $@"UPDATE BS_PROVIDERS
+                            SET 
+                                NAME = @Name, 
+                                DESCRIPTION = @Description, 
+                                DOCUMENT = @Document, 
+                                IS_ACTIVE = @IsActive
+                            WHERE ID = @Id
+                            ";
+            try
+            {
+                _uow.BeginTransaction();
+                await _session.Connection.ExecuteScalarAsync(query, currentModel, _session.Transaction);
+                _uow.Commit();
+            }
+            catch (Exception e)
+            {
+                _uow.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                _uow.Dispose();
+            }
+        }
+
+        private async Task<Provider> GetByName(string name, bool onlyActives = true)
+        {
+
+            var query = $@"
+                            SELECT
+                            ID                      AS Id,
+                            NAME                    AS Name,
+                            DESCRIPTION             AS Description,
+                            DOCUMENT                AS Document,
+                            CREATED_ON              AS CreatedOn,
+                            IS_ACTIVE               AS IsActive
+                        FROM
+                            BS_PROVIDERS BSP
+                        WHERE BSP.NAME = @name
+                        ";
+
+            if (onlyActives)
+                query += _onlyActivesQuery;
+
+            return await _session.Connection.QueryFirstOrDefaultAsync<Provider>(query, new { name }, _session.Transaction);
         }
     }
 }

@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Dev\\B-Skin-Api\\B-Skin-Api\\B-Skin-Api.Web.csproj": {}
+    "C:\\Dev\\B-Skin-Api\\b-skin-api\\B-Skin-Api.Web.csproj": {}
   },
   "projects": {
     "C:\\Dev\\B-Skin-Api\\B-Skin-Api.Data\\B-Skin-Api.Data.csproj": {
@@ -130,14 +130,14 @@
         }
       }
     },
-    "C:\\Dev\\B-Skin-Api\\B-Skin-Api\\B-Skin-Api.Web.csproj": {
+    "C:\\Dev\\B-Skin-Api\\b-skin-api\\B-Skin-Api.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Dev\\B-Skin-Api\\B-Skin-Api\\B-Skin-Api.Web.csproj",
+        "projectUniqueName": "C:\\Dev\\B-Skin-Api\\b-skin-api\\B-Skin-Api.Web.csproj",
         "projectName": "B-Skin-Api.Web",
-        "projectPath": "C:\\Dev\\B-Skin-Api\\B-Skin-Api\\B-Skin-Api.Web.csproj",
+        "projectPath": "C:\\Dev\\B-Skin-Api\\b-skin-api\\B-Skin-Api.Web.csproj",
         "packagesPath": "C:\\Users\\Carlos\\.nuget\\packages\\",
-        "outputPath": "C:\\Dev\\B-Skin-Api\\B-Skin-Api\\obj\\",
+        "outputPath": "C:\\Dev\\B-Skin-Api\\b-skin-api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Carlos\\AppData\\Roaming\\NuGet\\NuGet.Config",
