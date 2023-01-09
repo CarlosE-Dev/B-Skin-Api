@@ -8,5 +8,9 @@ namespace B_Skin_Api.Domain.Interfaces
     {
         Task<IEnumerable<Provider>> GetAll(bool includeInactives);
         Task<Provider> GetById(long id, bool includeInactives);
+        Task<Provider> Create(Provider entity);
+        Task InactivateById(long id);
+        Task ReactivateById(long id);
+        Task Update(long id, Provider entity);
     }
 }
