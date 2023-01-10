@@ -52,5 +52,77 @@ UPDATE BS_PROVIDERS SET PROVIDER_TYPE = 1, COUNTRY = 'IT', EMAIL = 'gucci@contac
 ==================================================================================================================================
 
 
+-- Alter Providers T-Shirts Table
+
+ALTER TABLE BS_TSHIRTS ADD `PROVIDER_ID` BIGINT UNSIGNED;
+ALTER TABLE BS_TSHIRTS ADD `SIZE` VARCHAR(5) DEFAULT NULL;
+ALTER TABLE BS_TSHIRTS ADD `COLOR` VARCHAR(50) DEFAULT NULL;
+ALTER TABLE BS_TSHIRTS ADD `GENDER` VARCHAR(1) DEFAULT NULL;
+
+ALTER TABLE `BS_TSHIRTS`
+ADD CONSTRAINT `FK_PROVIDER_ID`
+FOREIGN KEY (`PROVIDER_ID`) 
+REFERENCES `BS_PROVIDERS`(`ID`);
+
+
+==================================================================================================================================
+
+
+-- Update T-Shirts Table
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'M', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 1;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'M', `COLOR` = 'Blue', `GENDER` = 'M' WHERE `ID` = 2;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'P', `COLOR` = 'Yellow', `GENDER` = 'M' WHERE `ID` = 3;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'P', `COLOR` = 'Pink', `GENDER` = 'F' WHERE `ID` = 4;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'P', `COLOR` = 'White', `GENDER` = 'U' WHERE `ID` = 5;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'M', `COLOR` = 'Blue', `GENDER` = 'M' WHERE `ID` = 6;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'G', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 7;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'M', `COLOR` = 'White', `GENDER` = 'F' WHERE `ID` = 8;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'P', `COLOR` = 'Red', `GENDER` = 'F' WHERE `ID` = 9;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'GG', `COLOR` = 'Green', `GENDER` = 'M' WHERE `ID` = 10;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'P', `COLOR` = 'Blue', `GENDER` = 'M' WHERE `ID` = 11;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'M', `COLOR` = 'Black', `GENDER` = 'F' WHERE `ID` = 12;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'G', `COLOR` = 'White', `GENDER` = 'F' WHERE `ID` = 13;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'GG', `COLOR` = 'Red', `GENDER` = 'M' WHERE `ID` = 14;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 5, `SIZE` = 'XG', `COLOR` = 'Green', `GENDER` = 'M' WHERE `ID` = 15;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'P', `COLOR` = 'Blue', `GENDER` = 'M' WHERE `ID` = 16;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'M', `COLOR` = 'Black', `GENDER` = 'F' WHERE `ID` = 17;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'G', `COLOR` = 'White', `GENDER` = 'F' WHERE `ID` = 18;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'GG', `COLOR` = 'Red', `GENDER` = 'M' WHERE `ID` = 19;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 2, `SIZE` = 'XG', `COLOR` = 'Green', `GENDER` = 'M' WHERE `ID` = 20;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 3, `SIZE` = 'P', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 21;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 3, `SIZE` = 'M', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 22;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 3, `SIZE` = 'G', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 23;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 3, `SIZE` = 'GG', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 24;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 3, `SIZE` = 'XG', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 25;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 4, `SIZE` = 'P', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 26;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 4, `SIZE` = 'M', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 27;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 4, `SIZE` = 'G', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 28;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 4, `SIZE` = 'GG', `COLOR` = 'Black', `GENDER` = 'M' WHERE `ID` = 29;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 4, `SIZE` = 'XG', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 30;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 6, `SIZE` = 'P', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 31;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 6, `SIZE` = 'P', `COLOR` = 'White', `GENDER` = 'F' WHERE `ID` = 32;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 4, `SIZE` = 'M', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 33;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 4, `SIZE` = 'M', `COLOR` = 'White', `GENDER` = 'F' WHERE `ID` = 34;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 3, `SIZE` = 'M', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 35;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 3, `SIZE` = 'M', `COLOR` = 'White', `GENDER` = 'F' WHERE `ID` = 36;
+
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 1, `SIZE` = 'P', `COLOR` = 'White', `GENDER` = 'M' WHERE `ID` = 37;
+UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 1, `SIZE` = 'P', `COLOR` = 'White', `GENDER` = 'F' WHERE `ID` = 38;
+
+
+==================================================================================================================================
+
+
+
+
 
 

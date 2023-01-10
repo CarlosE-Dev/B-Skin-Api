@@ -21,5 +21,22 @@ namespace B_Skin_Api.Domain.Models
 
         [Required(ErrorMessage = "The field {0} cannot be empty")]
         public bool? IsActive { get; set; }
+
+        [Required(ErrorMessage = "The field {0} cannot be empty")]
+        [StringLength(1, ErrorMessage = "The length of the field {0} must be {2} character", MinimumLength = 1)]
+        public string Gender { get; set; }
+
+        [Required(ErrorMessage = "The field {0} cannot be empty")]
+        [StringLength(50, ErrorMessage = "The length of the field {0} must be {2} to {1} characters", MinimumLength = 2)]
+        public string Color { get; set; }
+
+        [Required(ErrorMessage = "The field {0} cannot be empty")]
+        [StringLength(5, ErrorMessage = "The length of the field {0} must be {2} to {1} characters", MinimumLength = 1)]
+        public string Size { get; set; }
+
+        [Required(ErrorMessage = "The field {0} cannot be empty")]
+        public long ProviderId { get; set; }
+
+        public string Brand { get; set; }
     }
 }
