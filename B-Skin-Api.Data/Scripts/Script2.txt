@@ -1,0 +1,56 @@
+﻿==================================================================================================================================
+
+
+-- Create Provider Type Table
+
+CREATE TABLE BS_PROVIDER_TYPE (
+  `ID` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `TYPE` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`ID`)
+);
+
+
+==================================================================================================================================
+
+
+-- Insert Provider Type
+
+INSERT INTO BS_PROVIDER_TYPE (`TYPE`) VALUES('Luxury');
+INSERT INTO BS_PROVIDER_TYPE (`TYPE`) VALUES('Sport');
+INSERT INTO BS_PROVIDER_TYPE (`TYPE`) VALUES('Casual');
+
+
+==================================================================================================================================
+
+
+-- Alter Providers Table
+
+ALTER TABLE BS_PROVIDERS ADD PROVIDER_TYPE BIGINT UNSIGNED;
+ALTER TABLE BS_PROVIDERS ADD COUNTRY VARCHAR(2) DEFAULT NULL;
+ALTER TABLE BS_PROVIDERS ADD EMAIL VARCHAR(100) DEFAULT NULL;
+ALTER TABLE BS_PROVIDERS ADD PHONE VARCHAR(20) DEFAULT NULL;
+
+ALTER TABLE `BS_PROVIDERS`
+ADD CONSTRAINT `FK_PROVIDER_TYPE`
+FOREIGN KEY (`PROVIDER_TYPE`) 
+REFERENCES `BS_PROVIDER_TYPE`(`ID`);
+
+
+==================================================================================================================================
+
+
+-- Update Providers Table
+
+UPDATE BS_PROVIDERS SET PROVIDER_TYPE = 1, COUNTRY = 'FR', EMAIL = 'lv@contact.net', PHONE = '(+155)7414-5862' WHERE ID = 1;
+UPDATE BS_PROVIDERS SET PROVIDER_TYPE = 3, COUNTRY = 'BR', EMAIL = 'renner@contact.com.br', PHONE = '(+55)99814-5862' WHERE ID = 2;
+UPDATE BS_PROVIDERS SET PROVIDER_TYPE = 2, COUNTRY = 'US', EMAIL = 'contactnike@nike.com', PHONE = '(+900)2311-5152' WHERE ID = 3;
+UPDATE BS_PROVIDERS SET PROVIDER_TYPE = 2, COUNTRY = 'DE', EMAIL = 'adidas@contact.com', PHONE = '(+777)3434-1822' WHERE ID = 4;
+UPDATE BS_PROVIDERS SET PROVIDER_TYPE = 3, COUNTRY = 'BR', EMAIL = 'contato@C&A.com.br', PHONE = '(+55)98824-7755' WHERE ID = 5;
+UPDATE BS_PROVIDERS SET PROVIDER_TYPE = 1, COUNTRY = 'IT', EMAIL = 'gucci@contact.com', PHONE = '(+921)9433-7833' WHERE ID = 6;
+
+
+==================================================================================================================================
+
+
+
+

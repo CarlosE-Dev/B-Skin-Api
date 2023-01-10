@@ -41,9 +41,9 @@ namespace B_Skin_Api.Data.Repositories
 
             PaginationModel filter = null;
 
-            if (pagination.Page != 0 && pagination.PageSize != 0)
+            if (!pagination.IgnorePagination)
             {
-                filter = new PaginationModel(pagination.Page, pagination.PageSize, null);
+                filter = new PaginationModel(pagination.Page - 1, pagination.PageSize, null);
                 query += $@" LIMIT {filter.PageSize} OFFSET {filter.Offset}";
             }
 
