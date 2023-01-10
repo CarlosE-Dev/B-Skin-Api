@@ -24,15 +24,24 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@"
                         SELECT
-                            ID                      AS Id,
-                            NAME                    AS ModelName,
-                            DESCRIPTION             AS ModelDescription,
-                            PRICE                   AS Price,
-                            QUANTITY_IN_STOCK       AS QuantityInStock,
-                            CREATED_ON              AS CreatedOn,
-                            IS_ACTIVE               AS IsActive
+                            BSTS.ID                      AS Id,
+                            BSTS.NAME                    AS ModelName,
+                            BSTS.DESCRIPTION             AS ModelDescription,
+                            BSTS.PRICE                   AS Price,
+                            BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
+                            BSTS.CREATED_ON              AS CreatedOn,
+                            BSTS.IS_ACTIVE               AS IsActive,
+                            BSTS.`SIZE`                  AS `Size`,
+                            BSTS.PROVIDER_ID             AS ProviderId,
+                            BSTS.COLOR                   AS Color,
+                            BSTS.GENDER                  AS Gender,
+                            BSP.NAME                     AS Brand
                         FROM
                             BS_TSHIRTS BSTS
+                        LEFT JOIN 
+                            BS_PROVIDERS BSP 
+                                ON 
+                            BSTS.PROVIDER_ID = BSP.ID
                         WHERE 1+1
                         ";
 
@@ -55,18 +64,27 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@"
                         SELECT
-                            ID                      AS Id,
-                            NAME                    AS ModelName,
-                            DESCRIPTION             AS ModelDescription,
-                            PRICE                   AS Price,
-                            QUANTITY_IN_STOCK       AS QuantityInStock,
-                            CREATED_ON              AS CreatedOn,
-                            IS_ACTIVE               AS IsActive
+                            BSTS.ID                      AS Id,
+                            BSTS.NAME                    AS ModelName,
+                            BSTS.DESCRIPTION             AS ModelDescription,
+                            BSTS.PRICE                   AS Price,
+                            BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
+                            BSTS.CREATED_ON              AS CreatedOn,
+                            BSTS.IS_ACTIVE               AS IsActive,
+                            BSTS.`SIZE`                  AS `Size`,
+                            BSTS.PROVIDER_ID             AS ProviderId,
+                            BSTS.COLOR                   AS Color,
+                            BSTS.GENDER                  AS Gender,
+                            BSP.NAME                     AS Brand
                         FROM
                             BS_TSHIRTS BSTS
+                        LEFT JOIN 
+                            BS_PROVIDERS BSP 
+                                ON 
+                            BSTS.PROVIDER_ID = BSP.ID
                             WHERE BSTS.NAME LIKE '{ "%" + querySearch + "%" }'
                             AND BSTS.IS_ACTIVE = TRUE
-                            ORDER BY LOCATE( '{ querySearch }', NAME )
+                            ORDER BY LOCATE( '{ querySearch }', BSTS.NAME )
                             LIMIT {resultLimit}
                         ";
 
@@ -80,15 +98,24 @@ namespace B_Skin_Api.Data.Repositories
 
             var query = $@"
                         SELECT
-                            ID                      AS Id,
-                            NAME                    AS ModelName,
-                            DESCRIPTION             AS ModelDescription,
-                            PRICE                   AS Price,
-                            QUANTITY_IN_STOCK       AS QuantityInStock,
-                            CREATED_ON              AS CreatedOn,
-                            IS_ACTIVE               AS IsActive
+                            BSTS.ID                      AS Id,
+                            BSTS.NAME                    AS ModelName,
+                            BSTS.DESCRIPTION             AS ModelDescription,
+                            BSTS.PRICE                   AS Price,
+                            BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
+                            BSTS.CREATED_ON              AS CreatedOn,
+                            BSTS.IS_ACTIVE               AS IsActive,
+                            BSTS.`SIZE`                  AS `Size`,
+                            BSTS.PROVIDER_ID             AS ProviderId,
+                            BSTS.COLOR                   AS Color,
+                            BSTS.GENDER                  AS Gender,
+                            BSP.NAME                     AS Brand
                         FROM
                             BS_TSHIRTS BSTS
+                        LEFT JOIN 
+                            BS_PROVIDERS BSP 
+                                ON 
+                            BSTS.PROVIDER_ID = BSP.ID
                         WHERE BSTS.ID = @id
                         ";
                 
@@ -166,9 +193,9 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@" INSERT INTO 
                             BS_TSHIRTS
-                                (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON, IS_ACTIVE)
+                                (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON, IS_ACTIVE, COLOR, PROVIDER_ID, `SIZE`, GENDER)
                             VALUES
-                                (@ModelName, @ModelDescription, @Price, @QuantityInStock, @CreatedOn, @IsActive)
+                                (@ModelName, @ModelDescription, @Price, @QuantityInStock, @CreatedOn, @IsActive, @Color, @ProviderId, @Size, @Gender)
                         ";
             try
             {
@@ -202,6 +229,10 @@ namespace B_Skin_Api.Data.Repositories
             currentModel.IsActive = entity.IsActive;
             currentModel.ModelName = entity.ModelName;
             currentModel.QuantityInStock = entity.QuantityInStock;
+            currentModel.Color = entity.Color;
+            currentModel.ProviderId = entity.ProviderId;
+            currentModel.Size = entity.Size;
+            currentModel.Gender = entity.Gender;
 
             var query = $@"UPDATE BS_TSHIRTS
                             SET 
@@ -210,7 +241,11 @@ namespace B_Skin_Api.Data.Repositories
                                 PRICE = @Price, 
                                 QUANTITY_IN_STOCK = @QuantityInStock, 
                                 CREATED_ON = @CreatedOn, 
-                                IS_ACTIVE = @IsActive
+                                IS_ACTIVE = @IsActive,
+                                COLOR = @Color,
+                                PROVIDER_ID = @ProviderId,
+                                `SIZE` = @Size,
+                                GENDER = @Gender
                             WHERE ID = @Id
                             ";
             try
@@ -235,15 +270,24 @@ namespace B_Skin_Api.Data.Repositories
 
             var query = $@"
                         SELECT
-                            ID                      AS Id,
-                            NAME                    AS ModelName,
-                            DESCRIPTION             AS ModelDescription,
-                            PRICE                   AS Price,
-                            QUANTITY_IN_STOCK       AS QuantityInStock,
-                            CREATED_ON              AS CreatedOn,
-                            IS_ACTIVE               AS IsActive
+                            BSTS.ID                      AS Id,
+                            BSTS.NAME                    AS ModelName,
+                            BSTS.DESCRIPTION             AS ModelDescription,
+                            BSTS.PRICE                   AS Price,
+                            BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
+                            BSTS.CREATED_ON              AS CreatedOn,
+                            BSTS.IS_ACTIVE               AS IsActive,
+                            BSTS.`SIZE`                  AS `Size`,
+                            BSTS.PROVIDER_ID             AS ProviderId,
+                            BSTS.COLOR                   AS Color,
+                            BSTS.GENDER                  AS Gender,
+                            BSP.NAME                     AS Brand
                         FROM
                             BS_TSHIRTS BSTS
+                        LEFT JOIN 
+                            BS_PROVIDERS BSP 
+                                ON 
+                            BSTS.PROVIDER_ID = BSP.ID
                         WHERE BSTS.NAME = @name
                         ";
 
