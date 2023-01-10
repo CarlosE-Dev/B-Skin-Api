@@ -75,7 +75,8 @@ namespace B_Skin_Api.Data.Repositories
                             BSTS.PROVIDER_ID             AS ProviderId,
                             BSTS.COLOR                   AS Color,
                             BSTS.GENDER                  AS Gender,
-                            BSP.NAME                     AS Brand
+                            BSP.NAME                     AS Brand,
+                            BSTS.IMAGE_URL               AS ImageUrl
                         FROM
                             BS_TSHIRTS BSTS
                         LEFT JOIN 
@@ -109,7 +110,8 @@ namespace B_Skin_Api.Data.Repositories
                             BSTS.PROVIDER_ID             AS ProviderId,
                             BSTS.COLOR                   AS Color,
                             BSTS.GENDER                  AS Gender,
-                            BSP.NAME                     AS Brand
+                            BSP.NAME                     AS Brand,
+                            BSTS.IMAGE_URL               AS ImageUrl
                         FROM
                             BS_TSHIRTS BSTS
                         LEFT JOIN 
@@ -193,9 +195,9 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@" INSERT INTO 
                             BS_TSHIRTS
-                                (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON, IS_ACTIVE, COLOR, PROVIDER_ID, `SIZE`, GENDER)
+                                (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON, IS_ACTIVE, COLOR, PROVIDER_ID, `SIZE`, GENDER, IMAGE_URL)
                             VALUES
-                                (@ModelName, @ModelDescription, @Price, @QuantityInStock, @CreatedOn, @IsActive, @Color, @ProviderId, @Size, @Gender)
+                                (@ModelName, @ModelDescription, @Price, @QuantityInStock, @CreatedOn, @IsActive, @Color, @ProviderId, @Size, @Gender, @ImageUrl)
                         ";
             try
             {
@@ -245,13 +247,39 @@ namespace B_Skin_Api.Data.Repositories
                                 COLOR = @Color,
                                 PROVIDER_ID = @ProviderId,
                                 `SIZE` = @Size,
-                                GENDER = @Gender
+                                GENDER = @Gender,
+                                IMAGE_URL = @ImageUrl
                             WHERE ID = @Id
                             ";
             try
             {
                 _uow.BeginTransaction();
                 await _session.Connection.ExecuteScalarAsync(query, currentModel, _session.Transaction);
+                _uow.Commit();
+            }
+            catch (Exception e)
+            {
+                _uow.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                _uow.Dispose();
+            }
+        }
+
+        public async Task UpdateImage(long id, string imageUrl)
+        {
+            var idExists = await GetById(id);
+
+            var query = $@"UPDATE BS_TSHIRTS
+                            SET IMAGE_URL = @imageUrl
+                            WHERE ID = @id
+                            ";
+            try
+            {
+                _uow.BeginTransaction();
+                await _session.Connection.ExecuteScalarAsync(query, new {id, imageUrl}, _session.Transaction);
                 _uow.Commit();
             }
             catch (Exception e)
@@ -281,7 +309,8 @@ namespace B_Skin_Api.Data.Repositories
                             BSTS.PROVIDER_ID             AS ProviderId,
                             BSTS.COLOR                   AS Color,
                             BSTS.GENDER                  AS Gender,
-                            BSP.NAME                     AS Brand
+                            BSP.NAME                     AS Brand,
+                            BSTS.IMAGE_URL               AS ImageUrl
                         FROM
                             BS_TSHIRTS BSTS
                         LEFT JOIN 

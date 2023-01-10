@@ -67,5 +67,12 @@ namespace B_Skin_Api.Web.Controllers
                 resultLimit
             ));
         }
+
+        [HttpPut("image/update/{id:long}")]
+        public async Task<IActionResult> UpdateImage(long id, string imgUrl)
+        {
+            await _repo.UpdateImage(id, imgUrl);
+            return NoContent();
+        }
     }
 }

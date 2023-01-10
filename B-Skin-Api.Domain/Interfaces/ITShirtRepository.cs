@@ -16,5 +16,6 @@ namespace B_Skin_Api.Domain.Interfaces
         Task<TShirtModel> Create(TShirtModel entity);
         Task Update(long id, TShirtModel entity);
         Task<IEnumerable<TShirtModel>> SearchTShirtsByKeyWords(string querySearch, int resultLimit);
+        Task UpdateImage(long id, string imageUrl);
     }
 }

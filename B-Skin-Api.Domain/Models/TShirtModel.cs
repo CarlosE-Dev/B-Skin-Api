@@ -38,5 +38,7 @@ namespace B_Skin_Api.Domain.Models
         public long ProviderId { get; set; }
 
         public string Brand { get; set; }
+
+        public string ImageUrl { get; set; }
     }
 }
