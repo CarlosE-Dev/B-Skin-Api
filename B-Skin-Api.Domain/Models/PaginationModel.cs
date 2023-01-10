@@ -8,15 +8,17 @@ namespace B_Skin_Api.Domain.Models
         public int? Page { get; set; }
 
         public int? PageSize { get; set; }
+        public bool IgnorePagination { get; set; }
 
         [JsonIgnore]
         public int? Offset { get; set; }
 
-        public PaginationModel(int? page, int? pageSize, int? offSet)
+        public PaginationModel(int? page, int? pageSize, int? offSet, bool ignorePagination = false)
         {
-            Page = page.Value < 0 ? 0 : page.Value;
+            Page = page.Value < 1 ? 0 : page.Value;
             PageSize = pageSize.Value < 1 ? 1 : pageSize.Value;
-            Offset = page * pageSize;
+            Offset = Page * PageSize;
+            IgnorePagination = ignorePagination ? ignorePagination : false;
         }
     }
 }

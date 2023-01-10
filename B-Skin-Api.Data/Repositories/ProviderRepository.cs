@@ -25,14 +25,21 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@"
                         SELECT
-                            ID                      AS Id,
-                            NAME                    AS Name,
-                            DESCRIPTION             AS Description,
-                            DOCUMENT                AS Document,
-                            CREATED_ON              AS CreatedOn,
-                            IS_ACTIVE               AS IsActive
+                            BSP.ID                      AS Id,
+                            BSP.NAME                    AS Name,
+                            BSP.DESCRIPTION             AS Description,
+                            BSP.DOCUMENT                AS Document,
+                            BSP.CREATED_ON              AS CreatedOn,
+                            BSP.IS_ACTIVE               AS IsActive,
+                            BSP.COUNTRY                 AS Country,
+                            BSP.EMAIL                   AS Email,
+                            BSP.PHONE                   AS Phone,
+                            BSP.PROVIDER_TYPE           AS ProviderTypeId,
+                            BSPT.TYPE                   AS ProviderTypeName
                         FROM
                             BS_PROVIDERS BSP
+                        LEFT JOIN BS_PROVIDER_TYPE BSPT
+                            ON BSP.PROVIDER_TYPE = BSPT.ID 
                         WHERE 1+1
                         ";
 
@@ -47,14 +54,21 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@"
                         SELECT
-                            ID                      AS Id,
-                            NAME                    AS Name,
-                            DESCRIPTION             AS Description,
-                            DOCUMENT                AS Document,
-                            CREATED_ON              AS CreatedOn,
-                            IS_ACTIVE               AS IsActive
+                            BSP.ID                      AS Id,
+                            BSP.NAME                    AS Name,
+                            BSP.DESCRIPTION             AS Description,
+                            BSP.DOCUMENT                AS Document,
+                            BSP.CREATED_ON              AS CreatedOn,
+                            BSP.IS_ACTIVE               AS IsActive,
+                            BSP.COUNTRY                 AS Country,
+                            BSP.EMAIL                   AS Email,
+                            BSP.PHONE                   AS Phone,
+                            BSP.PROVIDER_TYPE           AS ProviderTypeId,
+                            BSPT.TYPE                   AS ProviderTypeName
                         FROM
                             BS_PROVIDERS BSP
+                        LEFT JOIN BS_PROVIDER_TYPE BSPT
+                            ON BSP.PROVIDER_TYPE = BSPT.ID 
                         WHERE BSP.ID = @id
                         ";
 
@@ -132,9 +146,9 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@" INSERT INTO 
                             BS_PROVIDERS
-                                (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
+                                (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE, EMAIL, PHONE, PROVIDER_TYPE, COUNTRY)
                             VALUES
-                                (@Name, @Description, @Document, @CreatedOn, @IsActive)
+                                (@Name, @Description, @Document, @CreatedOn, @IsActive, @Email, @Phone, @ProviderTypeId, @Country)
                         ";
             try
             {
@@ -167,13 +181,21 @@ namespace B_Skin_Api.Data.Repositories
             currentModel.Description = entity.Description;
             currentModel.Document = entity.Document;
             currentModel.IsActive = entity.IsActive;
+            currentModel.Email = entity.Email;
+            currentModel.Country = entity.Country;
+            currentModel.Phone = entity.Phone;
+            currentModel.ProviderTypeId = entity.ProviderTypeId;
 
             var query = $@"UPDATE BS_PROVIDERS
                             SET 
-                                NAME = @Name, 
-                                DESCRIPTION = @Description, 
-                                DOCUMENT = @Document, 
-                                IS_ACTIVE = @IsActive
+                                NAME =              @Name, 
+                                DESCRIPTION =       @Description, 
+                                DOCUMENT =          @Document, 
+                                IS_ACTIVE =         @IsActive,
+                                COUNTRY =           @Country,
+                                EMAIL =             @Email,
+                                PHONE =             @Phone,
+                                PROVIDER_TYPE =     @ProviderTypeId
                             WHERE ID = @Id
                             ";
             try
@@ -195,17 +217,23 @@ namespace B_Skin_Api.Data.Repositories
 
         private async Task<Provider> GetByName(string name, bool onlyActives = true)
         {
-
             var query = $@"
-                            SELECT
-                            ID                      AS Id,
-                            NAME                    AS Name,
-                            DESCRIPTION             AS Description,
-                            DOCUMENT                AS Document,
-                            CREATED_ON              AS CreatedOn,
-                            IS_ACTIVE               AS IsActive
+                        SELECT
+                            BSP.ID                      AS Id,
+                            BSP.NAME                    AS Name,
+                            BSP.DESCRIPTION             AS Description,
+                            BSP.DOCUMENT                AS Document,
+                            BSP.CREATED_ON              AS CreatedOn,
+                            BSP.IS_ACTIVE               AS IsActive,
+                            BSP.COUNTRY                 AS Country,
+                            BSP.EMAIL                   AS Email,
+                            BSP.PHONE                   AS Phone,
+                            BSP.PROVIDER_TYPE           AS ProviderTypeId,
+                            BSPT.TYPE                   AS ProviderTypeName
                         FROM
                             BS_PROVIDERS BSP
+                        LEFT JOIN BS_PROVIDER_TYPE BSPT
+                            ON BSP.PROVIDER_TYPE = BSPT.ID 
                         WHERE BSP.NAME = @name
                         ";
 
