@@ -12,5 +12,6 @@ namespace B_Skin_Api.Domain.Interfaces
         Task InactivateById(long id);
         Task ReactivateById(long id);
         Task Update(long id, Provider entity);
+        Task ExcludePermanently(long id);
     }
 }

@@ -53,5 +53,12 @@ namespace B_Skin_Api.Web.Controllers
         {
             return Created("", await _repo.Create(entity));
         }
+
+        [HttpDelete("ExcludePermanently")]
+        public async Task<IActionResult> ExcludePermanently(long id)
+        {
+            await _repo.ExcludePermanently(id);
+            return NoContent();
+        }
     }
 }

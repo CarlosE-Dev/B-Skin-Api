@@ -74,5 +74,12 @@ namespace B_Skin_Api.Web.Controllers
             await _repo.UpdateImage(id, imgUrl);
             return NoContent();
         }
+
+        [HttpDelete("ExcludePermanently")]
+        public async Task<IActionResult> ExcludePermanently(long id)
+        {
+            await _repo.ExcludePermanently(id);
+            return NoContent();
+        }
     }
 }
