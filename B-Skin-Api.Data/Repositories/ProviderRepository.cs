@@ -46,6 +46,8 @@ namespace B_Skin_Api.Data.Repositories
             if (onlyActives)
                 query += _onlyActivesQuery;
 
+            query += " ORDER BY BSP.NAME";
+
             var result = await _session.Connection.QueryAsync<Provider>(query, null, _session.Transaction);
 
             return result;
@@ -202,6 +204,27 @@ namespace B_Skin_Api.Data.Repositories
             {
                 _uow.BeginTransaction();
                 await _session.Connection.ExecuteScalarAsync(query, currentModel, _session.Transaction);
+                _uow.Commit();
+            }
+            catch (Exception e)
+            {
+                _uow.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                _uow.Dispose();
+            }
+        }
+
+        public async Task ExcludePermanently(long id)
+        {
+            var query = "DELETE FROM BS_PROVIDERS WHERE ID = @id";
+
+            try
+            {
+                _uow.BeginTransaction();
+                await _session.Connection.ExecuteScalarAsync(query, new {id}, _session.Transaction);
                 _uow.Commit();
             }
             catch (Exception e)
