@@ -35,7 +35,8 @@ namespace B_Skin_Api.Data.Repositories
                             BSP.EMAIL                   AS Email,
                             BSP.PHONE                   AS Phone,
                             BSP.PROVIDER_TYPE           AS ProviderTypeId,
-                            BSPT.TYPE                   AS ProviderTypeName
+                            BSPT.TYPE                   AS ProviderTypeName,
+                            BSP.IMAGE_URL               AS ImageUrl
                         FROM
                             BS_PROVIDERS BSP
                         LEFT JOIN BS_PROVIDER_TYPE BSPT
@@ -66,7 +67,8 @@ namespace B_Skin_Api.Data.Repositories
                             BSP.EMAIL                   AS Email,
                             BSP.PHONE                   AS Phone,
                             BSP.PROVIDER_TYPE           AS ProviderTypeId,
-                            BSPT.TYPE                   AS ProviderTypeName
+                            BSPT.TYPE                   AS ProviderTypeName,
+                            BSP.IMAGE_URL               AS ImageUrl
                         FROM
                             BS_PROVIDERS BSP
                         LEFT JOIN BS_PROVIDER_TYPE BSPT
@@ -148,9 +150,9 @@ namespace B_Skin_Api.Data.Repositories
         {
             var query = $@" INSERT INTO 
                             BS_PROVIDERS
-                                (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE, EMAIL, PHONE, PROVIDER_TYPE, COUNTRY)
+                                (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE, EMAIL, PHONE, PROVIDER_TYPE, COUNTRY, IMAGE_URL)
                             VALUES
-                                (@Name, @Description, @Document, @CreatedOn, @IsActive, @Email, @Phone, @ProviderTypeId, @Country)
+                                (@Name, @Description, @Document, @CreatedOn, @IsActive, @Email, @Phone, @ProviderTypeId, @Country, @ImageUrl)
                         ";
             try
             {
@@ -197,7 +199,8 @@ namespace B_Skin_Api.Data.Repositories
                                 COUNTRY =           @Country,
                                 EMAIL =             @Email,
                                 PHONE =             @Phone,
-                                PROVIDER_TYPE =     @ProviderTypeId
+                                PROVIDER_TYPE =     @ProviderTypeId,
+                                IMAGE_URL =         @ImageUrl
                             WHERE ID = @Id
                             ";
             try
@@ -238,6 +241,31 @@ namespace B_Skin_Api.Data.Repositories
             }
         }
 
+        public async Task UpdateImage(long id, string imageUrl)
+        {
+            var idExists = await GetById(id);
+
+            var query = $@"UPDATE BS_PROVIDERS
+                            SET IMAGE_URL = @imageUrl
+                            WHERE ID = @id
+                            ";
+            try
+            {
+                _uow.BeginTransaction();
+                await _session.Connection.ExecuteScalarAsync(query, new { id, imageUrl }, _session.Transaction);
+                _uow.Commit();
+            }
+            catch (Exception e)
+            {
+                _uow.Rollback();
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                _uow.Dispose();
+            }
+        }
+
         private async Task<Provider> GetByName(string name, bool onlyActives = true)
         {
             var query = $@"
@@ -252,7 +280,8 @@ namespace B_Skin_Api.Data.Repositories
                             BSP.EMAIL                   AS Email,
                             BSP.PHONE                   AS Phone,
                             BSP.PROVIDER_TYPE           AS ProviderTypeId,
-                            BSPT.TYPE                   AS ProviderTypeName
+                            BSPT.TYPE                   AS ProviderTypeName,
+                            BSP.IMAGE_URL               AS ImageUrl
                         FROM
                             BS_PROVIDERS BSP
                         LEFT JOIN BS_PROVIDER_TYPE BSPT

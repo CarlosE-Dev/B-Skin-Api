@@ -122,10 +122,44 @@ UPDATE BS_TSHIRTS SET `PROVIDER_ID` = 1, `SIZE` = 'P', `COLOR` = 'White', `GENDE
 ==================================================================================================================================
 
 
+-- ALTER T-SHIRTS TABLE
+
 ALTER TABLE BS_TSHIRTS ADD `IMAGE_URL` VARCHAR(500) DEFAULT NULL;
 
 
 ==================================================================================================================================
+
+
+-- ALTER PROVIDERS TABLE
+
+ALTER TABLE BS_PROVIDERS ADD `IMAGE_URL` VARCHAR(500) DEFAULT NULL;
+
+
+-- UPDATE PROVIDERS TABLE
+
+UPDATE BS_PROVIDERS BSP 
+SET IMAGE_URL = 'https://media.discordapp.net/attachments/1062864750196822026/1062864885056282624/logoLv.png'
+WHERE BSP.ID = 1;
+
+UPDATE BS_PROVIDERS BSP 
+SET IMAGE_URL = 'https://media.discordapp.net/attachments/1062864750196822026/1063173186457440266/rennerLogo.png'
+WHERE BSP.ID = 2;
+
+UPDATE BS_PROVIDERS BSP 
+SET IMAGE_URL = 'https://media.discordapp.net/attachments/1062864750196822026/1062864847550820383/logoNike.png'
+WHERE BSP.ID = 3;
+
+UPDATE BS_PROVIDERS BSP 
+SET IMAGE_URL = 'https://media.discordapp.net/attachments/1062864750196822026/1062865270491852970/logoAdidas.png'
+WHERE BSP.ID = 4;
+
+UPDATE BS_PROVIDERS BSP 
+SET IMAGE_URL = 'https://media.discordapp.net/attachments/1062864750196822026/1062867315521241098/c_aLogo.png'
+WHERE BSP.ID = 5;
+
+UPDATE BS_PROVIDERS BSP 
+SET IMAGE_URL = 'https://media.discordapp.net/attachments/1062864750196822026/1062867372114976878/gcLogo.png'
+WHERE BSP.ID = 5;
 
 
 
