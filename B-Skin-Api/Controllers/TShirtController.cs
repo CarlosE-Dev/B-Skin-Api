@@ -75,7 +75,7 @@ namespace B_Skin_Api.Web.Controllers
             return NoContent();
         }
 
-        [HttpDelete("ExcludePermanently")]
+        [HttpDelete("exclude/{id:long}")]
         public async Task<IActionResult> ExcludePermanently(long id)
         {
             await _repo.ExcludePermanently(id);

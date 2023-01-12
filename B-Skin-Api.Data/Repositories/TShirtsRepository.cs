@@ -35,7 +35,8 @@ namespace B_Skin_Api.Data.Repositories
                             BSTS.PROVIDER_ID             AS ProviderId,
                             BSTS.COLOR                   AS Color,
                             BSTS.GENDER                  AS Gender,
-                            BSP.NAME                     AS Brand
+                            BSP.NAME                     AS Brand,
+                            BSTS.IMAGE_URL               AS ImageUrl
                         FROM
                             BS_TSHIRTS BSTS
                         LEFT JOIN 
