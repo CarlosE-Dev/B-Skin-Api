@@ -4,7 +4,6 @@ using B_Skin_Api.Domain.Models;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace B_Skin_Api.Data.Repositories
@@ -180,7 +179,7 @@ namespace B_Skin_Api.Data.Repositories
 
         public async Task Update(long id, Provider entity)
         {
-            var currentModel = await GetById(id);
+            var currentModel = await GetById(id, false);
             currentModel.Name = entity.Name;
             currentModel.Description = entity.Description;
             currentModel.Document = entity.Document;
