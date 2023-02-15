@@ -16,12 +16,12 @@ namespace B_Skin_Api.Web.Controllers
         }
 
         [HttpPost("list")]
-        public async Task<IActionResult> GetAll(bool onlyActives, PaginationModel pagination)
+        public async Task<IActionResult> GetAll(bool onlyActives, TShirtFilterModel filter)
         {
             return Ok(
             await _repo.GetAll(
                 onlyActives,
-                pagination
+                filter
             ));
         }
 

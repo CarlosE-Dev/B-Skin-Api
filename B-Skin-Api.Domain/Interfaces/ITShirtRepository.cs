@@ -9,7 +9,7 @@ namespace B_Skin_Api.Domain.Interfaces
 {
     public interface ITShirtRepository
     {
-        Task<IEnumerable<TShirtModel>> GetAll(bool onlyActives, PaginationModel pagination);
+        Task<IEnumerable<TShirtModel>> GetAll(bool onlyActives, TShirtFilterModel filter);
         Task<TShirtModel> GetById(long id, bool onlyActives);
         Task InactivateById(long id);
         Task ReactivateById(long id);

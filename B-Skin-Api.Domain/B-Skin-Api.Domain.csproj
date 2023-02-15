@@ -5,4 +5,8 @@
     <RootNamespace>B_Skin_Api.Domain</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Responses\" />
+  </ItemGroup>
+
 </Project>

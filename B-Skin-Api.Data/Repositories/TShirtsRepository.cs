@@ -1,4 +1,5 @@
 ﻿using B_Skin_Api.Data.Dapper;
+using B_Skin_Api.Domain.Enums;
 using B_Skin_Api.Domain.Interfaces;
 using B_Skin_Api.Domain.Models;
 using Dapper;
@@ -20,8 +21,10 @@ namespace B_Skin_Api.Data.Repositories
             _onlyActivesQuery = " AND BSTS.IS_ACTIVE = TRUE";
         }
 
-        public async Task<IEnumerable<TShirtModel>> GetAll(bool onlyActives = true, PaginationModel pagination = null)
+        public async Task<IEnumerable<TShirtModel>> GetAll(bool onlyActives = true, TShirtFilterModel filter = null)
         {
+            string orderBy = "";
+
             var query = $@"
                         SELECT
                             BSTS.ID                      AS Id,
@@ -49,15 +52,74 @@ namespace B_Skin_Api.Data.Repositories
             if (onlyActives)
                 query += _onlyActivesQuery;
 
-            PaginationModel filter = null;
-
-            if (!pagination.IgnorePagination)
+            if (filter.FilterType == EFilterTShirt.Price)
             {
-                filter = new PaginationModel(pagination.Page - 1, pagination.PageSize, null);
-                query += $@" LIMIT {filter.PageSize} OFFSET {filter.Offset}";
+                if (filter.InitialPrice != null && filter.FinalPrice != null)
+                {
+                    query += $@" AND BSTS.PRICE BETWEEN {filter.InitialPrice} and {filter.FinalPrice}";
+                }
             }
 
-            query += " ORDER BY BSTS.NAME";
+            if (filter.FilterType == EFilterTShirt.Brand)
+            {
+                if (filter.ProviderId != null)
+                {
+                    query += $@" AND BSTS.PROVIDER_ID = {filter.ProviderId}";
+                }
+            }
+
+            if (filter.FilterType == EFilterTShirt.Size)
+            {
+                if (filter.Size != null && filter.Size > 0)
+                {
+                    string size = "";
+                    switch (filter.Size)
+                    {
+                        case ESizeModel.XS: 
+                            size = "PP"; 
+                                break;
+                        case ESizeModel.S: 
+                            size = "P"; 
+                                break;
+                        case ESizeModel.M: 
+                            size = "M"; 
+                                break;
+                        case ESizeModel.L: 
+                            size = "G";
+                                break;
+                        case ESizeModel.XL: 
+                            size = "XG";
+                                break;
+                    }
+
+                    if (!string.IsNullOrEmpty(size))
+                    {
+                        query += $@" AND BSTS.`SIZE` = '{size}'";
+                    }
+                }
+            }
+
+            if (filter.OrderBy.HasValue && filter.OrderBy.Value > 0)
+            {
+                if (filter.OrderBy == EOrderBy.HighPrice)
+                    orderBy = " ORDER BY PRICE DESC";
+
+                if (filter.OrderBy == EOrderBy.LowPrice)
+                    orderBy = " ORDER BY PRICE";
+            }
+
+            if (string.IsNullOrEmpty(orderBy))
+                orderBy = "  ORDER BY BSTS.NAME";
+
+            query += orderBy;
+
+            TShirtFilterModel paginationFilter = null;
+
+            if (!filter.IgnorePagination)
+            {
+                paginationFilter = new TShirtFilterModel(filter.Page - 1, filter.PageSize, null);
+                query += $@" LIMIT {paginationFilter.PageSize} OFFSET {paginationFilter.Offset}";
+            }
 
             var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
 

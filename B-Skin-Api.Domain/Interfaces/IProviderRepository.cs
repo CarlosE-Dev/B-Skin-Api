@@ -14,6 +14,5 @@ namespace B_Skin_Api.Domain.Interfaces
         Task Update(long id, Provider entity);
         Task UpdateImage(long id, string imageUrl);
         Task ExcludePermanently(long id);
-
     }
 }
