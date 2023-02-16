@@ -379,6 +379,31 @@ namespace B_Skin_Api.Data.Repositories
             }
         }
 
+        public async Task<IEnumerable<TShirtModel>> TesteBanco()
+        {
+            var query = $@"
+                        SELECT
+                            BSTS.ID                      AS Id,
+                            BSTS.NAME                    AS ModelName,
+                            BSTS.DESCRIPTION             AS ModelDescription,
+                            BSTS.PRICE                   AS Price,
+                            BSP.NAME                     AS Brand
+                        FROM
+                            BS_TSHIRTS BSTS
+                        LEFT JOIN 
+                            BS_PROVIDERS BSP 
+                                ON 
+                            BSTS.PROVIDER_ID = BSP.ID
+                        ";
+
+            var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
+
+            if (result == null)
+                throw new Exception("T-Shirt not found!");
+
+            return result;
+        }
+
         private async Task<TShirtModel> GetByName(string name, bool onlyActives = true)
         {
 
