@@ -36,163 +36,163 @@ CREATE TABLE BS_TSHIRTS (
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Batman T-Shirt", "Super-hero shirt for teens", 19.99, 141, CURRENT_TIMESTAMP);
+VALUES('Batman T-Shirt', 'Super-hero shirt for teens', 19.99, 141, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Spider-Man T-Shirt", "Marvel super-hero shirt", 22.99, 133, CURRENT_TIMESTAMP);
+VALUES('Spider-Man T-Shirt', 'Marvel super-hero shirt', 22.99, 133, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Sponge Bob T-Shirt", "Funny shirt for kids", 29.99, 80, CURRENT_TIMESTAMP);
+VALUES('Sponge Bob T-Shirt', 'Funny shirt for kids', 29.99, 80, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Sponge Bob T-Shirt", "Funny shirt for kids", 24.99, 50, CURRENT_TIMESTAMP);
+VALUES('Sponge Bob T-Shirt', 'Funny shirt for kids', 24.99, 50, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Looney Tunes T-Shirt", "Warner Bros. cartoon T-Shirt", 27.99, 30, CURRENT_TIMESTAMP);
+VALUES('Looney Tunes T-Shirt', 'Warner Bros. cartoon T-Shirt', 27.99, 30, CURRENT_TIMESTAMP);
 
 
 -- Basic (colors)
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Sleeveless T-Shirt", "Blue sleeveless basic shirt, made in China", 8.99, 200, CURRENT_TIMESTAMP);
+VALUES('Basic Sleeveless T-Shirt', 'Blue sleeveless basic shirt, made in China', 8.99, 200, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Sleeveless T-Shirt", "Black sleeveless basic shirt, made in China", 8.99, 200, CURRENT_TIMESTAMP);
+VALUES('Basic Sleeveless T-Shirt', 'Black sleeveless basic shirt, made in China', 8.99, 200, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Sleeveless T-Shirt", "White sleeveless basic shirt, made in China", 8.99, 200, CURRENT_TIMESTAMP);
+VALUES('Basic Sleeveless T-Shirt', 'White sleeveless basic shirt, made in China', 8.99, 200, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Sleeveless T-Shirt", "Red sleeveless basic shirt, made in China", 8.99, 200, CURRENT_TIMESTAMP);
+VALUES('Basic Sleeveless T-Shirt', 'Red sleeveless basic shirt, made in China', 8.99, 200, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Sleeveless T-Shirt", "Green sleeveless basic shirt, made in China", 8.99, 200, CURRENT_TIMESTAMP);
+VALUES('Basic Sleeveless T-Shirt', 'Green sleeveless basic shirt, made in China', 8.99, 200, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic T-Shirt", "Blue basic shirt, made in China", 10.99, 125, CURRENT_TIMESTAMP);
+VALUES('Basic T-Shirt', 'Blue basic shirt, made in China', 10.99, 125, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic T-Shirt", "Black basic shirt, made in China", 10.99, 125, CURRENT_TIMESTAMP);
+VALUES('Basic T-Shirt', 'Black basic shirt, made in China', 10.99, 125, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic T-Shirt", "White basic shirt, made in China", 10.99, 125, CURRENT_TIMESTAMP);
+VALUES('Basic T-Shirt', 'White basic shirt, made in China', 10.99, 125, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic T-Shirt", "Red basic shirt, made in China", 10.99, 125, CURRENT_TIMESTAMP);
+VALUES('Basic T-Shirt', 'Red basic shirt, made in China', 10.99, 125, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic T-Shirt", "Green basic shirt, made in China", 10.99, 125, CURRENT_TIMESTAMP);
+VALUES('Basic T-Shirt', 'Green basic shirt, made in China', 10.99, 125, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Long Sleeve T-Shirt", "Blue long sleeve basic shirt, made in China", 12.99, 190, CURRENT_TIMESTAMP);
+VALUES('Basic Long Sleeve T-Shirt', 'Blue long sleeve basic shirt, made in China', 12.99, 190, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Long Sleeve T-Shirt", "Black long sleeve basic shirt, made in China", 12.99, 190, CURRENT_TIMESTAMP);
+VALUES('Basic Long Sleeve T-Shirt', 'Black long sleeve basic shirt, made in China', 12.99, 190, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Long Sleeve T-Shirt", "White long sleeve basic shirt, made in China", 12.99, 190, CURRENT_TIMESTAMP);
+VALUES('Basic Long Sleeve T-Shirt', 'White long sleeve basic shirt, made in China', 12.99, 190, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Long Sleeve T-Shirt", "Red long sleeve basic shirt, made in China", 12.99, 190, CURRENT_TIMESTAMP);
+VALUES('Basic Long Sleeve T-Shirt', 'Red long sleeve basic shirt, made in China', 12.99, 190, CURRENT_TIMESTAMP);
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Basic Long Sleeve T-Shirt", "Green long sleeve basic shirt, made in China", 12.99, 190, CURRENT_TIMESTAMP);
+VALUES('Basic Long Sleeve T-Shirt', 'Green long sleeve basic shirt, made in China', 12.99, 190, CURRENT_TIMESTAMP);
 
 
 -- Sports
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Skateboarding T-Shirt", "T-Shirt with graffiti print for skateboarding", 32.99, 50, CURRENT_TIMESTAMP);
+VALUES('Skateboarding T-Shirt', 'T-Shirt with graffiti print for skateboarding', 32.99, 50, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Long Sleeve Skateboarding T-Shirt", "T-Shirt with a big print for skateboarding", 39.99, 22, CURRENT_TIMESTAMP);
+VALUES('Long Sleeve Skateboarding T-Shirt', 'T-Shirt with a big print for skateboarding', 39.99, 22, CURRENT_TIMESTAMP);
 
 
 -- Rappers
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Notorious Big T-Shirt", "T-Shirt with B.I.G art", 50.99, 3, CURRENT_TIMESTAMP);
+VALUES('Notorious Big T-Shirt', 'T-Shirt with B.I.G art', 50.99, 3, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Tupac T-Shirt", "T-Shirt with Tupac art", 50.99, 14, CURRENT_TIMESTAMP);
+VALUES('Tupac T-Shirt', 'T-Shirt with Tupac art', 50.99, 14, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Snoop Dogg T-Shirt", "T-Shirt with Snoop Dogg art", 50.99, 114, CURRENT_TIMESTAMP);
+VALUES('Snoop Dogg T-Shirt', 'T-Shirt with Snoop Dogg art', 50.99, 114, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("N.W.A. T-Shirt", "T-Shirt with N.W.A. art", 37.99, 10, CURRENT_TIMESTAMP);
+VALUES('N.W.A. T-Shirt', 'T-Shirt with N.W.A. art', 37.99, 10, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Weed T-Shirt", "T-Shirt with weed art", 25.99, 100, CURRENT_TIMESTAMP);
+VALUES('Weed T-Shirt', 'T-Shirt with weed art', 25.99, 100, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("50Cent T-Shirt", "T-Shirt with 50Cent art", 45.99, 109, CURRENT_TIMESTAMP);
+VALUES('50Cent T-Shirt', 'T-Shirt with 50Cent art', 45.99, 109, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Eminem T-Shirt", "T-Shirt with Eminem art", 55.99, 200, CURRENT_TIMESTAMP);
+VALUES('Eminem T-Shirt', 'T-Shirt with Eminem art', 55.99, 200, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Migos T-Shirt", "T-Shirt with Migos art", 45.99, 120, CURRENT_TIMESTAMP);
+VALUES('Migos T-Shirt', 'T-Shirt with Migos art', 45.99, 120, CURRENT_TIMESTAMP);
 
 
 -- Basic Gucci
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Gucci T-Shirt", "T-Shirt with Gucci logo", 995.99, 170, CURRENT_TIMESTAMP);
+VALUES('Gucci T-Shirt', 'T-Shirt with Gucci logo', 995.99, 170, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Gucci Female T-Shirt", "T-Shirt with Gucci logo", 845.99, 130, CURRENT_TIMESTAMP);
+VALUES('Gucci Female T-Shirt', 'T-Shirt with Gucci logo', 845.99, 130, CURRENT_TIMESTAMP);
 
 
 -- Basic Adidas
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Adidas T-Shirt", "T-Shirt with Adidas logo", 95.99, 170, CURRENT_TIMESTAMP);
+VALUES('Adidas T-Shirt', 'T-Shirt with Adidas logo', 95.99, 170, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Adidas Female T-Shirt", "T-Shirt with Adidas logo", 90.99, 130, CURRENT_TIMESTAMP);
+VALUES('Adidas Female T-Shirt', 'T-Shirt with Adidas logo', 90.99, 130, CURRENT_TIMESTAMP);
 
 
 -- Basic Nike
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Nike T-Shirt", "T-Shirt with Nike logo", 75.99, 150, CURRENT_TIMESTAMP);
+VALUES('Nike T-Shirt', 'T-Shirt with Nike logo', 75.99, 150, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("Nike Female T-Shirt", "T-Shirt with Nike logo", 90.99, 110, CURRENT_TIMESTAMP);
+VALUES('Nike Female T-Shirt', 'T-Shirt with Nike logo', 90.99, 110, CURRENT_TIMESTAMP);
 
 -- Basic L.V.
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("L.V. T-Shirt", "T-Shirt with LV logo", 2125.99, 150, CURRENT_TIMESTAMP);
+VALUES('L.V. T-Shirt', 'T-Shirt with LV logo', 2125.99, 150, CURRENT_TIMESTAMP);
 
 INSERT INTO BS_TSHIRTS 
 (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON)
-VALUES("L.V. Female T-Shirt", "T-Shirt with LV logo", 3999.99, 110, CURRENT_TIMESTAMP);
+VALUES('L.V. Female T-Shirt', 'T-Shirt with LV logo', 3999.99, 110, CURRENT_TIMESTAMP);
 
 
 
@@ -232,19 +232,19 @@ INSERT INTO BS_PROVIDERS
 (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
 VALUES('Adidas', 
 'Adidas AG is a German multinational corporation, founded and headquartered in Herzogenaurach, Bavaria, that designs and manufactures shoes, clothing and accessories.', 
-'12345678978787', CURRENT_TIMESTAMP, true);
+'12345678978787', CURRENT_TIMESTAMP, 1);
 
 INSERT INTO BS_PROVIDERS
 (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
 VALUES('C&A', 
 'C&A is a Dutch multinational of retail clothing stores, with European head offices in Vilvoorde, Belgium, and Düsseldorf, Germany.', 
-'12345678978789', CURRENT_TIMESTAMP, true);
+'12345678978789', CURRENT_TIMESTAMP, 1);
 
 INSERT INTO BS_PROVIDERS
 (NAME, DESCRIPTION, DOCUMENT, CREATED_ON, IS_ACTIVE)
 VALUES('Gucci', 
 'Gucci is an Italian high-end luxury fashion house based in Florence, Italy. Its product lines include handbags, ready-to-wear, footwear, accessories, and home decoration.', 
-'12345678978713', CURRENT_TIMESTAMP, true);
+'12345678978713', CURRENT_TIMESTAMP, 1);
 
 
 

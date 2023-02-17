@@ -1,5 +1,7 @@
 ﻿using B_Skin_Api.Domain.Interfaces;
 using B_Skin_Api.Domain.Models;
+using B_Skin_Api.Domain.Models.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -10,9 +12,11 @@ namespace B_Skin_Api.Web.Controllers
     public class ProvidersController : ControllerBase
     {
         private readonly IProviderRepository _repo;
-        public ProvidersController(IProviderRepository repo)
+        private readonly IMediator _mediator;
+        public ProvidersController(IProviderRepository repo, IMediator mediator)
         {
             _repo = repo;
+            _mediator = mediator;
         }
 
         [HttpGet("list")]
@@ -49,9 +53,9 @@ namespace B_Skin_Api.Web.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> Create(Provider entity)
+        public async Task<IActionResult> Create(CreateProviderCommand command)
         {
-            return Created("", await _repo.Create(entity));
+            return Created("", await _mediator.Send(command));
         }
 
         [HttpPut("image/update/{id:long}")]

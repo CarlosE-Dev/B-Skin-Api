@@ -1,13 +1,14 @@
-using B_Skin_Api.Data.Dapper;
-using B_Skin_Api.Data.Repositories;
-using B_Skin_Api.Data.UnitOfWork;
-using B_Skin_Api.Domain.Interfaces;
+using B_Skin_Api.Domain.AutoMapper;
+using B_Skin_Api.Domain.Models;
+using B_Skin_Api.Web.Configurations;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace B_Skin_Api.Web
 {
@@ -28,10 +29,9 @@ namespace B_Skin_Api.Web
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "B_Skin_Api", Version = "v1" });
             });
 
-            services.AddScoped<DbSession>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ITShirtRepository, TShirtsRepository>();
-            services.AddScoped<IProviderRepository, ProviderRepository>();
+            services.ConfigureDependencyInjection();
+            services.AddAutoMapper(typeof(AutoMapperProfile));
+            services.AddMediatR(typeof(EntityBase).GetTypeInfo().Assembly);
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -45,8 +45,6 @@ namespace B_Skin_Api.Web
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseCors(x => x
                 .AllowAnyMethod()

@@ -3,7 +3,6 @@
     public enum EFilterTShirt
     {
         Brand = 1,
-        Size = 2,
-        Price = 3
+        Size = 2
     }
 }

@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "+9CEWQEESsR9pDlsD9vSuPWSB9mZ2+CuQBvEFN3b8YxJSYdBxs4WxyPPCgkMmIp5pWirl8ofgdq/Ie5G/eGnAA==",
+  "dgSpecHash": "/ppIAoPdbtiDAv80Cpiic9Aa8CwL/o3QvYK+02vZWdS0z627RTz8xwWp1ep0l7TpZLJcNtedV6F0yIm3YFESbg==",
   "success": true,
   "projectFilePath": "C:\\Dev\\B-Skin-Api\\B-Skin-Api.Domain\\B-Skin-Api.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Carlos\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\Carlos\\.nuget\\packages\\mediatr\\11.0.0\\mediatr.11.0.0.nupkg.sha512",
+    "C:\\Users\\Carlos\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512",
+    "C:\\Users\\Carlos\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

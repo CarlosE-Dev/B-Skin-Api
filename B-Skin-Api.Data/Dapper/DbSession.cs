@@ -1,6 +1,6 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace B_Skin_Api.Data.Dapper
 {
@@ -13,7 +13,7 @@ namespace B_Skin_Api.Data.Dapper
         public DbSession()
         {
             _id = Guid.NewGuid();
-            Connection = new MySqlConnection(@"Server=localhost;Initial Catalog=BSKIN_DB;User=root;Password=root;");
+            Connection = new SqlConnection(@"Server=localhost;Database=B_SKIN_SERVER;Trusted_Connection=True;");
             Connection.Open();
         }
 

@@ -29,10 +29,9 @@ namespace B_Skin_Api.Domain.Models
         public int? Offset { get; set; }
 
         /// <summary>
-        /// Filter By Properties - 1 -> Brand , 2 -> Size, 3 -> Price
+        /// Filter By Properties - 1 -> Brand , 2 -> Size
         /// You need to combine this value with the correspondent properties of the filter
         /// Example: If you enter 1 and did'nt enter a value for ProviderId, the filter will not work
-        /// Example2: If you enter 3 and did'nt enter values for Initial and Final Price, the filter will not work
         /// </summary>
         public EFilterTShirt? FilterType { get; set; }
 
@@ -42,7 +41,7 @@ namespace B_Skin_Api.Domain.Models
         public decimal? InitialPrice { get; set; }
 
         /// <summary>
-        /// Filter Property, final price, if you don't want to filter by price, enter null
+        /// Filter Property, final price, should be greater than 0, if you don't want to filter by price, enter null
         /// </summary>
         public decimal? FinalPrice { get; set; }
 
