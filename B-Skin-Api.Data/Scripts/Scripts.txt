@@ -1,15 +1,14 @@
-﻿-- Create Database
+﻿-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+-- Create Database
 
 CREATE DATABASE B_SKIN_SERVER;
 
 
 
-
-
-
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 
 
@@ -381,7 +380,19 @@ UPDATE BS_TSHIRTS SET PROVIDER_ID = 1, SIZE = 'P', COLOR = 'White', GENDER = 'F'
 -------------------------------------------------------------------------------------------------------------
 
 
-ALTER TABLE BS_TSHIRTS ALTER COLUMN PROVIDER_ID BIGINT NOT NULL;
+ALTER TABLE BS_TSHIRTS ALTER COLUMN PROVIDER_ID BIGINT NOT NULL
+
+
+-------------------------------------------------------------------------------------------------------------
+
+
+UPDATE BS_TSHIRTS SET SIZE = 'S' WHERE SIZE = 'P'
+
+UPDATE BS_TSHIRTS SET SIZE = 'L' WHERE SIZE = 'G'
+
+UPDATE BS_TSHIRTS SET SIZE = 'XL' WHERE SIZE = 'XG'
+
+UPDATE BS_TSHIRTS SET SIZE = 'XS' WHERE COLOR = 'WHITE' AND SIZE = 'S'
 
 
 -------------------------------------------------------------------------------------------------------------
@@ -466,3 +477,75 @@ WHERE ID=19;
 UPDATE BS_TSHIRTS 
 SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868837147615252/20.png'
 WHERE ID=20;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868837520920576/21.png'
+WHERE ID=21;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868837864849578/22.png'
+WHERE ID=22;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868838225551410/23.png'
+WHERE ID=23;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868838565302282/24.png'
+WHERE ID=24;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868838942785666/25.png'
+WHERE ID=25;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868839307681872/26.png'
+WHERE ID=26;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868839680987266/27.png'
+WHERE ID=27;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868946199519292/28.png'
+WHERE ID=28;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868946988044288/29.png'
+WHERE ID=29;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868947654934558/30.png'
+WHERE ID=30;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868948137283695/31.png'
+WHERE ID=31;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868948581875732/32.png'
+WHERE ID=32;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868948980338758/33.png'
+WHERE ID=33;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868949496234155/34.png'
+WHERE ID=34;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868949861142558/35.png'
+WHERE ID=35;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868950666453123/36.png'
+WHERE ID=36;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868951224287323/37.png'
+WHERE ID=37;
+
+UPDATE BS_TSHIRTS 
+SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868968282525728/38.png'
+WHERE ID=38;

@@ -81,11 +81,5 @@ namespace B_Skin_Api.Web.Controllers
             await _repo.ExcludePermanently(id);
             return NoContent();
         }
-
-        [HttpGet("teste/banco")]
-        public async Task<IActionResult> TesteBanco()
-        {
-            return Ok(await _repo.TesteBanco());
-        }
     }
 }

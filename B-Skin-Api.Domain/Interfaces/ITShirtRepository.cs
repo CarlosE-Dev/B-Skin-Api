@@ -1,8 +1,5 @@
 ﻿using B_Skin_Api.Domain.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace B_Skin_Api.Domain.Interfaces
@@ -18,6 +15,5 @@ namespace B_Skin_Api.Domain.Interfaces
         Task<IEnumerable<TShirtModel>> SearchTShirtsByKeyWords(string querySearch, int resultLimit);
         Task UpdateImage(long id, string imageUrl);
         Task ExcludePermanently(long id);
-        Task<IEnumerable<TShirtModel>> TesteBanco();
     }
 }

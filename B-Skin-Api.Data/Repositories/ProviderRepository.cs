@@ -1,6 +1,8 @@
-﻿using B_Skin_Api.Data.Dapper;
+﻿using AutoMapper;
+using B_Skin_Api.Data.Dapper;
 using B_Skin_Api.Domain.Interfaces;
 using B_Skin_Api.Domain.Models;
+using B_Skin_Api.Domain.Models.Dtos;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,7 @@ namespace B_Skin_Api.Data.Repositories
         {
             _session = session;
             _uow = uow;
-            _onlyActivesQuery = " AND BSP.IS_ACTIVE = TRUE";
+            _onlyActivesQuery = " AND BSP.IS_ACTIVE = 1";
         }
 
         public async Task<IEnumerable<Provider>> GetAll(bool onlyActives = true)
@@ -40,7 +42,7 @@ namespace B_Skin_Api.Data.Repositories
                             BS_PROVIDERS BSP
                         LEFT JOIN BS_PROVIDER_TYPE BSPT
                             ON BSP.PROVIDER_TYPE = BSPT.ID 
-                        WHERE 1+1
+                        WHERE 1 = 1
                         ";
 
             if (onlyActives)
@@ -145,7 +147,7 @@ namespace B_Skin_Api.Data.Repositories
             }
         }
 
-        public async Task<Provider> Create(Provider entity)
+        public async Task<ProviderDTO> Create(Provider entity)
         {
             var query = $@" INSERT INTO 
                             BS_PROVIDERS
@@ -172,7 +174,7 @@ namespace B_Skin_Api.Data.Repositories
             var createdEntity = await GetByName(entity.Name);
 
             if (createdEntity == null)
-                throw new Exception("Provider not found!");
+                throw new Exception("An error ocurred during the process.");
 
             return createdEntity;
         }
@@ -188,6 +190,7 @@ namespace B_Skin_Api.Data.Repositories
             currentModel.Country = entity.Country;
             currentModel.Phone = entity.Phone;
             currentModel.ProviderTypeId = entity.ProviderTypeId;
+            currentModel.ImageUrl = entity.ImageUrl;
 
             var query = $@"UPDATE BS_PROVIDERS
                             SET 
@@ -265,7 +268,7 @@ namespace B_Skin_Api.Data.Repositories
             }
         }
 
-        private async Task<Provider> GetByName(string name, bool onlyActives = true)
+        private async Task<ProviderDTO> GetByName(string name, bool onlyActives = true)
         {
             var query = $@"
                         SELECT
@@ -291,7 +294,7 @@ namespace B_Skin_Api.Data.Repositories
             if (onlyActives)
                 query += _onlyActivesQuery;
 
-            return await _session.Connection.QueryFirstOrDefaultAsync<Provider>(query, new { name }, _session.Transaction);
+            return await _session.Connection.QueryFirstOrDefaultAsync<ProviderDTO>(query, new { name }, _session.Transaction);
         }
     }
 }
