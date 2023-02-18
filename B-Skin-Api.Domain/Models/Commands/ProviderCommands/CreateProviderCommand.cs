@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using MediatR;
-using System.Threading.Tasks;
-using System.Threading;
 using B_Skin_Api.Domain.Interfaces;
 using B_Skin_Api.Domain.Models.Dtos;
+using MediatR;
 using System.ComponentModel.DataAnnotations;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace B_Skin_Api.Domain.Models.Commands
+namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
 {
     public class CreateProviderCommand : IRequest<ProviderDTO>
     {

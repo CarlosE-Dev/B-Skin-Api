@@ -1,0 +1,24 @@
+﻿-- Remover coluna size de tshirts
+-- Criar endpoint para retorno de size
+-- Criar inserção de size no command com interpolação de string
+-- Criar registros para BS_TSHIRTS_SIZE
+
+
+
+INSERT INTO BS_TSHIRTS_SIZE
+(SIZE_ID, TSHIRT_ID)
+VALUES(1, 1);
+
+INSERT INTO BS_TSHIRTS_SIZE
+(SIZE_ID, TSHIRT_ID)
+VALUES(2, 1);
+
+INSERT INTO BS_TSHIRTS_SIZE
+(SIZE_ID, TSHIRT_ID)
+VALUES(3, 1);
+
+
+SELECT BS.SIZE FROM BS_SIZE BS
+LEFT JOIN BS_TSHIRTS_SIZE BTS
+ON BS.ID = BTS.SIZE_ID 
+WHERE BTS.TSHIRT_ID = 1

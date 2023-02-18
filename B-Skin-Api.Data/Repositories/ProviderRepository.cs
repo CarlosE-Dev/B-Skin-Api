@@ -22,7 +22,7 @@ namespace B_Skin_Api.Data.Repositories
             _onlyActivesQuery = " AND BSP.IS_ACTIVE = 1";
         }
 
-        public async Task<IEnumerable<Provider>> GetAll(bool onlyActives = true)
+        public async Task<IEnumerable<ProviderDTO>> GetAll(bool onlyActives = true)
         {
             var query = $@"
                         SELECT
@@ -50,11 +50,11 @@ namespace B_Skin_Api.Data.Repositories
 
             query += " ORDER BY BSP.NAME";
 
-            var result = await _session.Connection.QueryAsync<Provider>(query, null, _session.Transaction);
+            var result = await _session.Connection.QueryAsync<ProviderDTO>(query, null, _session.Transaction);
 
             return result;
         }
-        public async Task<Provider> GetById(long id, bool onlyActives = true)
+        public async Task<ProviderDTO> GetById(long id, bool onlyActives = true)
         {
             var query = $@"
                         SELECT
@@ -80,7 +80,7 @@ namespace B_Skin_Api.Data.Repositories
             if (onlyActives)
                 query += _onlyActivesQuery;
 
-            var result = await _session.Connection.QueryFirstOrDefaultAsync<Provider>(query, new { id }, _session.Transaction);
+            var result = await _session.Connection.QueryFirstOrDefaultAsync<ProviderDTO>(query, new { id }, _session.Transaction);
 
             if (result == null)
                 throw new Exception("Provider not found!");
@@ -179,18 +179,11 @@ namespace B_Skin_Api.Data.Repositories
             return createdEntity;
         }
 
-        public async Task Update(long id, Provider entity)
+        public async Task Update(Provider entity)
         {
-            var currentModel = await GetById(id, false);
-            currentModel.Name = entity.Name;
-            currentModel.Description = entity.Description;
-            currentModel.Document = entity.Document;
-            currentModel.IsActive = entity.IsActive;
-            currentModel.Email = entity.Email;
-            currentModel.Country = entity.Country;
-            currentModel.Phone = entity.Phone;
-            currentModel.ProviderTypeId = entity.ProviderTypeId;
-            currentModel.ImageUrl = entity.ImageUrl;
+            var currentModel = await GetById(entity.Id, false);
+
+            if (currentModel == null) throw new Exception("Provider not found.");
 
             var query = $@"UPDATE BS_PROVIDERS
                             SET 
@@ -208,7 +201,7 @@ namespace B_Skin_Api.Data.Repositories
             try
             {
                 _uow.BeginTransaction();
-                await _session.Connection.ExecuteScalarAsync(query, currentModel, _session.Transaction);
+                await _session.Connection.ExecuteScalarAsync(query, entity, _session.Transaction);
                 _uow.Commit();
             }
             catch (Exception e)

@@ -549,3 +549,36 @@ WHERE ID=37;
 UPDATE BS_TSHIRTS 
 SET IMAGE_URL='https://media.discordapp.net/attachments/1062864750196822026/1062868968282525728/38.png'
 WHERE ID=38;
+
+
+-------------------------------------------------------------------------------------------------------------
+
+
+CREATE TABLE BS_SIZE (
+  ID BIGINT IDENTITY(1,1) PRIMARY KEY,
+  SIZE VARCHAR(2) NOT NULL,
+);
+
+CREATE TABLE BS_TSHIRTS_SIZE (
+  ID BIGINT IDENTITY(1,1) PRIMARY KEY,
+  SIZE_ID BIGINT NOT NULL,
+  TSHIRT_ID BIGINT NOT NULL
+);
+
+
+-------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO BS_SIZE ([SIZE]) VALUES('XS');
+INSERT INTO BS_SIZE ([SIZE]) VALUES('S');
+INSERT INTO BS_SIZE ([SIZE]) VALUES('M');
+INSERT INTO BS_SIZE ([SIZE]) VALUES('L');
+INSERT INTO BS_SIZE ([SIZE]) VALUES('XL');
+
+ALTER TABLE BS_TSHIRTS_SIZE ADD CONSTRAINT FK_TSHIRT_ID FOREIGN KEY (TSHIRT_ID) REFERENCES BS_TSHIRTS (ID);
+ALTER TABLE BS_TSHIRTS_SIZE ADD CONSTRAINT FK_SIZE_ID FOREIGN KEY (SIZE_ID) REFERENCES BS_SIZE (ID);
+
+ALTER TABLE BS_TSHIRTS ADD SIZE_ID BIGINT NULL;
+
+
+-------------------------------------------------------------------------------------------------------------
