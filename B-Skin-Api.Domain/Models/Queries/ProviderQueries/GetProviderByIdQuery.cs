@@ -27,9 +27,9 @@ namespace B_Skin_Api.Domain.Models.Queries.ProviderQueries
             _providerRepository = providerRepository;
         }
 
-        public async Task<ProviderDTO> Handle(GetProviderByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ProviderDTO> Handle(GetProviderByIdQuery query, CancellationToken cancellationToken)
         {
-            return await _providerRepository.GetById(request.Id, request.IncludeInactives);
+            return await _providerRepository.GetById(query.Id, query.IncludeInactives);
         }
     }
 }

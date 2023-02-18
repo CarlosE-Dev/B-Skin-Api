@@ -18,7 +18,7 @@ namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
         public long Id { get; set; }
 
         [StringLength(500, ErrorMessage = "The length of the field {0} must be {2} to {1} characters", MinimumLength = 5)]
-        public EProviderStatusOperationType OperationType { get; set; }
+        public EStatusOperationType OperationType { get; set; }
     }
 
     public class UpdateProviderStatusCommandHandler : IRequestHandler<UpdateProviderStatusCommand, Unit>
@@ -31,13 +31,13 @@ namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
 
         public async Task<Unit> Handle(UpdateProviderStatusCommand request, CancellationToken cancellationToken)
         {
-            if (request.OperationType == EProviderStatusOperationType.Inactivate)
+            if (request.OperationType == EStatusOperationType.Inactivate)
                 await _providerRepository.InactivateById(request.Id);
 
-            if(request.OperationType == EProviderStatusOperationType.Reactivate)
+            if(request.OperationType == EStatusOperationType.Reactivate)
                 await _providerRepository.ReactivateById(request.Id);
 
-            return Unit.Task.Result;
+            return await Unit.Task;
         }
     }
 }

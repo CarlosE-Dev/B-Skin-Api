@@ -60,7 +60,7 @@ namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
         {
             await _providerRepository.Update(_mapper.Map<Provider>(request));
 
-            return Unit.Task.Result;
+            return await Unit.Task;
         }
     }
 }

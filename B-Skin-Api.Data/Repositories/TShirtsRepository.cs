@@ -2,9 +2,12 @@
 using B_Skin_Api.Domain.Enums;
 using B_Skin_Api.Domain.Interfaces;
 using B_Skin_Api.Domain.Models;
+using B_Skin_Api.Domain.Models.Dtos;
+using B_Skin_Api.Domain.Models.Queries.TShirtQueries;
 using Dapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace B_Skin_Api.Data.Repositories
@@ -21,111 +24,123 @@ namespace B_Skin_Api.Data.Repositories
             _onlyActivesQuery = " AND BSTS.IS_ACTIVE = 1";
         }
 
-        public async Task<IEnumerable<TShirtModel>> GetAll(bool onlyActives = true, TShirtFilterModel filter = null)
+        public async Task<IEnumerable<TShirtDTO>> GetAll(GetAllTShirtsQuery query)
         {
             string orderBy = "";
+            string querySql = $@"
+                                SELECT
+                                    BSTS.ID                      AS Id,
+                                    BSTS.NAME                    AS ModelName,
+                                    BSTS.DESCRIPTION             AS ModelDescription,
+                                    BSTS.PRICE                   AS Price,
+                                    BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
+                                    BSTS.CREATED_ON              AS CreatedOn,
+                                    BSTS.IS_ACTIVE               AS IsActive,
+                                    BSTS.PROVIDER_ID             AS ProviderId,
+                                    BSTS.COLOR                   AS Color,
+                                    BSTS.GENDER                  AS Gender,
+                                    BSP.NAME                     AS Brand,
+                                    BSTS.IMAGE_URL               AS ImageUrl,
+                                    BSTS.PROVIDER_ID             AS ProviderId
+                                FROM
+                                    BS_TSHIRTS BSTS
+                                LEFT JOIN
+                                    BS_PROVIDERS BSP
+                                        ON 
+                                    BSTS.PROVIDER_ID = BSP.ID
+                                WHERE 1 = 1
+                              ";
 
-            var query = $@"
-                        SELECT
-                            BSTS.ID                      AS Id,
-                            BSTS.NAME                    AS ModelName,
-                            BSTS.DESCRIPTION             AS ModelDescription,
-                            BSTS.PRICE                   AS Price,
-                            BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
-                            BSTS.CREATED_ON              AS CreatedOn,
-                            BSTS.IS_ACTIVE               AS IsActive,
-                            BSTS.SIZE                    AS Size,
-                            BSTS.PROVIDER_ID             AS ProviderId,
-                            BSTS.COLOR                   AS Color,
-                            BSTS.GENDER                  AS Gender,
-                            BSP.NAME                     AS Brand,
-                            BSTS.IMAGE_URL               AS ImageUrl
-                        FROM
-                            BS_TSHIRTS BSTS
-                        LEFT JOIN 
-                            BS_PROVIDERS BSP 
-                                ON 
-                            BSTS.PROVIDER_ID = BSP.ID
-                        WHERE 1 = 1
-                        ";
+            if (query.OnlyActives)
+                querySql += _onlyActivesQuery;
 
-            if (onlyActives)
-                query += _onlyActivesQuery;
-
-            if (filter.InitialPrice != null && filter.FinalPrice != null && filter.FinalPrice > 0)
+            if (query.Filters != null)
             {
-                query += $@" AND BSTS.PRICE BETWEEN {filter.InitialPrice} and {filter.FinalPrice}";
-            }
+                if (query.Filters.InitialPrice != null && query.Filters.FinalPrice != null)
+                    querySql += $@" AND BSTS.PRICE BETWEEN {query.Filters.InitialPrice} and {query.Filters.FinalPrice}";
 
-            if (filter.FilterType == EFilterTShirt.Brand)
-            {
-                if (filter.ProviderId != null)
+                if (query.Filters.InitialPrice != null && query.Filters.FinalPrice == null)
+                    querySql += $@" AND BSTS.PRICE >= {query.Filters.InitialPrice}";
+
+                if (query.Filters.InitialPrice == null && query.Filters.FinalPrice != null)
+                    querySql += $@" AND BSTS.PRICE <= {query.Filters.FinalPrice}";
+
+                if (query.Filters.ProviderId != null)
+                    querySql += $@" AND BSTS.PROVIDER_ID = {query.Filters.ProviderId}";
+
+                if (!string.IsNullOrEmpty(query.Filters.Gender))
+                    querySql += $@" AND BSTS.GENDER = '{query.Filters.Gender.ToUpper()}'";
+
+                if (query.Filters.OrderBy != null)
                 {
-                    query += $@" AND BSTS.PROVIDER_ID = {filter.ProviderId}";
+                    if (query.Filters.OrderBy == EOrderBy.HighPrice)
+                        orderBy = " ORDER BY PRICE DESC";
+
+                    if (query.Filters.OrderBy == EOrderBy.LowPrice)
+                        orderBy = " ORDER BY PRICE";
                 }
-            }
-
-            if (filter.FilterType == EFilterTShirt.Size)
-            {
-                if (filter.Size != null && filter.Size > 0)
-                {
-                    string size = "";
-                    switch (filter.Size)
-                    {
-                        case ESizeModel.XS: 
-                            size = "XS"; 
-                                break;
-                        case ESizeModel.S: 
-                            size = "S"; 
-                                break;
-                        case ESizeModel.M: 
-                            size = "M"; 
-                                break;
-                        case ESizeModel.L: 
-                            size = "L";
-                                break;
-                        case ESizeModel.XL: 
-                            size = "XL";
-                                break;
-                    }
-
-                    if (!string.IsNullOrEmpty(size))
-                    {
-                        query += $@" AND BSTS.SIZE = '{size}'";
-                    }
-                }
-            }
-
-            if (filter.OrderBy.HasValue && filter.OrderBy.Value > 0)
-            {
-                if (filter.OrderBy == EOrderBy.HighPrice)
-                    orderBy = " ORDER BY PRICE DESC";
-
-                if (filter.OrderBy == EOrderBy.LowPrice)
-                    orderBy = " ORDER BY PRICE";
             }
 
             if (string.IsNullOrEmpty(orderBy))
                 orderBy = "  ORDER BY BSTS.NAME";
 
-            query += orderBy;
+            querySql += orderBy;
 
-            TShirtFilterModel paginationFilter = null;
-
-            if (!filter.IgnorePagination)
+            if (query.Pagination != null)
             {
-                paginationFilter = new TShirtFilterModel(filter.Page - 1, filter.PageSize, null);
-                query += $@" OFFSET ({paginationFilter.Offset}) ROWS FETCH FIRST {filter.PageSize} ROWS ONLY";
+                if (!query.Pagination.IgnorePagination)
+                {
+                    var paginationFilter = new PaginationFilter(query.Pagination.Page - 1, query.Pagination.PageSize);
+                    querySql += $@" OFFSET ({paginationFilter.Page * paginationFilter.PageSize}) ROWS FETCH FIRST {query.Pagination.PageSize} ROWS ONLY";
+                }
             }
 
-            var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
+            var result = await _session.Connection.QueryAsync<TShirtDTO>(querySql, null, _session.Transaction);
+
+            if (result != null)
+            {
+                foreach (var item in result)
+                {
+                    var avaiableSizes = await GetAvaiableSizes(item.Id);
+                    item.AvaiableSizes = avaiableSizes;
+                }
+            }
+
+            if (query.Filters != null)
+            {
+                if (query.Filters.Size != null)
+                {
+                    string size = "";
+                    switch (query.Filters.Size)
+                    {
+                        case ESizeModel.XS:
+                            size = "XS";
+                            break;
+                        case ESizeModel.S:
+                            size = "S";
+                            break;
+                        case ESizeModel.M:
+                            size = "M";
+                            break;
+                        case ESizeModel.L:
+                            size = "L";
+                            break;
+                        case ESizeModel.XL:
+                            size = "XL";
+                            break;
+                    }
+
+                    return result.Where(x => x.AvaiableSizes.Any(x => x.Size.Equals(size)));
+                }
+            }
 
             return result;
         }
-        public async Task<IEnumerable<TShirtModel>> SearchTShirtsByKeyWords(string querySearch, int resultLimit)
+
+        public async Task<IEnumerable<TShirtDTO>> SearchTShirtsByKeyWords(string querySearch, int resultsLimit)
         {
-            var query = $@"
-                        SELECT TOP {resultLimit}
+            string query = $@"
+                        SELECT TOP {resultsLimit}
                             BSTS.ID                      AS Id,
                             BSTS.NAME                    AS ModelName,
                             BSTS.DESCRIPTION             AS ModelDescription,
@@ -133,12 +148,12 @@ namespace B_Skin_Api.Data.Repositories
                             BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
                             BSTS.CREATED_ON              AS CreatedOn,
                             BSTS.IS_ACTIVE               AS IsActive,
-                            BSTS.SIZE                    AS Size,
                             BSTS.PROVIDER_ID             AS ProviderId,
                             BSTS.COLOR                   AS Color,
                             BSTS.GENDER                  AS Gender,
                             BSP.NAME                     AS Brand,
-                            BSTS.IMAGE_URL               AS ImageUrl
+                            BSTS.IMAGE_URL               AS ImageUrl,
+                            BSTS.PROVIDER_ID             AS ProviderId
                         FROM
                             BS_TSHIRTS BSTS
                         LEFT JOIN 
@@ -150,52 +165,38 @@ namespace B_Skin_Api.Data.Repositories
                             ORDER BY CHARINDEX( '{ querySearch }', BSTS.NAME )
                         ";
 
-            var result = await _session.Connection.QueryAsync<TShirtModel>(query, null, _session.Transaction);
+            var result = await _session.Connection.QueryAsync<TShirtDTO>(query, null, _session.Transaction);
+
+            if (result != null)
+            {
+                foreach (var item in result)
+                {
+                    var avaiableSizes = await GetAvaiableSizes(item.Id);
+                    item.AvaiableSizes = avaiableSizes;
+                }
+            }
 
             return result;
         }
 
-        public async Task<TShirtModel> GetById(long id, bool onlyActives = true)
-        { 
-
-            var query = $@"
-                        SELECT
-                            BSTS.ID                      AS Id,
-                            BSTS.NAME                    AS ModelName,
-                            BSTS.DESCRIPTION             AS ModelDescription,
-                            BSTS.PRICE                   AS Price,
-                            BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
-                            BSTS.CREATED_ON              AS CreatedOn,
-                            BSTS.IS_ACTIVE               AS IsActive,
-                            BSTS.SIZE                  AS Size,
-                            BSTS.PROVIDER_ID             AS ProviderId,
-                            BSTS.COLOR                   AS Color,
-                            BSTS.GENDER                  AS Gender,
-                            BSP.NAME                     AS Brand,
-                            BSTS.IMAGE_URL               AS ImageUrl
-                        FROM
-                            BS_TSHIRTS BSTS
-                        LEFT JOIN 
-                            BS_PROVIDERS BSP 
-                                ON 
-                            BSTS.PROVIDER_ID = BSP.ID
-                        WHERE BSTS.ID = @id
-                        ";
-                
-            if (onlyActives)
-                query += _onlyActivesQuery;
-
-            var result = await _session.Connection.QueryFirstOrDefaultAsync<TShirtModel>(query, new {id}, _session.Transaction);
+        public async Task<TShirtDTO> GetById(long id, bool onlyActives = true)
+        {
+            var result = await GetAll(new GetAllTShirtsQuery
+            {
+                Filters = null,
+                OnlyActives = onlyActives,
+                Pagination = null
+            });
 
             if (result == null)
                 throw new Exception("T-Shirt not found!");
 
-            return result;
+            return result.FirstOrDefault(x => x.Id == id);
         }
 
         public async Task InactivateById(long id)
         {
-            var query = $@"
+            string query = $@"
                         UPDATE 
                             BS_TSHIRTS
                         SET 
@@ -224,7 +225,7 @@ namespace B_Skin_Api.Data.Repositories
 
         public async Task ReactivateById(long id)
         {
-            var query = $@"
+            string query = $@"
                         UPDATE 
                             BS_TSHIRTS
                         SET 
@@ -252,18 +253,39 @@ namespace B_Skin_Api.Data.Repositories
             }
         }
 
-        public async Task<TShirtModel> Create(TShirtModel entity)
+        public async Task<TShirtDTO> Create(TShirtModel entity, string sizeIds)
         {
-            var query = $@" INSERT INTO 
-                            BS_TSHIRTS
-                                (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON, IS_ACTIVE, COLOR, PROVIDER_ID, SIZE, GENDER, IMAGE_URL)
-                            VALUES
-                                (@ModelName, @ModelDescription, @Price, @QuantityInStock, @CreatedOn, @IsActive, @Color, @ProviderId, @Size, @Gender, @ImageUrl)
-                        ";
+            var separatedSizes = SeparateSizes(sizeIds);
+            TShirtDTO createdEntity = null;
+
+            if (entity.Gender != null)
+                entity.Gender = entity.Gender.ToUpper();
+
+            string queryTShirt = $@"INSERT INTO BS_TSHIRTS
+                                    (NAME, DESCRIPTION, PRICE, QUANTITY_IN_STOCK, CREATED_ON, IS_ACTIVE, IMAGE_URL, PROVIDER_ID, COLOR, GENDER)
+                                    VALUES
+                                    (@ModelName, @ModelDescription, @Price, @QuantityInStock, @CreatedOn, @IsActive, @ImageUrl, @ProviderId, @Color, @Gender)
+                                   ";
+
+            string querySizes = $@"INSERT INTO BS_TSHIRTS_SIZE
+                                    (SIZE_ID, TSHIRT_ID)
+                                    VALUES(@size, @id)
+                                  ";
             try
             {
                 _uow.BeginTransaction();
-                await _session.Connection.ExecuteScalarAsync(query, entity, _session.Transaction);
+                await _session.Connection.ExecuteScalarAsync(queryTShirt, entity, _session.Transaction);
+                
+                createdEntity = await GetCreatedRegister(entity);
+
+                foreach (int size in separatedSizes)
+                {
+                    long id = createdEntity.Id;
+                    await _session.Connection.ExecuteScalarAsync(querySizes, new { size, id }, _session.Transaction);
+                }
+
+                createdEntity.AvaiableSizes = await GetAvaiableSizes(createdEntity.Id);
+
                 _uow.Commit();
             }
             catch (Exception e)
@@ -276,46 +298,51 @@ namespace B_Skin_Api.Data.Repositories
                 _uow.Dispose();
             }
 
-            var createdEntity = await GetByName(entity.ModelName);
-
-            if(createdEntity == null)
-                throw new Exception("T-Shirt not found!");
+            if (createdEntity == null)
+                throw new Exception("An error ocurred during the process.");
 
             return createdEntity;
         }
 
-        public async Task Update(long id, TShirtModel entity)
+        public async Task Update(TShirtModel entity, string sizeIds)
         {
-            var currentModel = await GetById(id);
-            currentModel.Price = entity.Price;
-            currentModel.ModelDescription = entity.ModelDescription;
-            currentModel.IsActive = entity.IsActive;
-            currentModel.ModelName = entity.ModelName;
-            currentModel.QuantityInStock = entity.QuantityInStock;
-            currentModel.Color = entity.Color;
-            currentModel.ProviderId = entity.ProviderId;
-            currentModel.Size = entity.Size;
-            currentModel.Gender = entity.Gender;
+            long id = entity.Id;
+            var separatedSizes = SeparateSizes(sizeIds);
 
-            var query = $@"UPDATE BS_TSHIRTS
-                            SET 
-                                NAME = @ModelName, 
-                                DESCRIPTION = @ModelDescription, 
-                                PRICE = @Price, 
-                                QUANTITY_IN_STOCK = @QuantityInStock, 
-                                CREATED_ON = @CreatedOn, 
-                                IS_ACTIVE = @IsActive,
-                                COLOR = @Color,
-                                PROVIDER_ID = @ProviderId,
-                                SIZE = @Size,
-                                GENDER = @Gender,
-                                IMAGE_URL = @ImageUrl
-                            WHERE ID = @Id
-                            ";
+            var currentModel = await GetById(entity.Id);
+            if (currentModel == null) throw new Exception("T-Shirt not found.");
+
+            if (entity.Gender != null)
+                entity.Gender = entity.Gender.ToUpper();
+
+            string querySizes = $@"INSERT INTO BS_TSHIRTS_SIZE (SIZE_ID, TSHIRT_ID) VALUES(@size, @id)";
+
+            string queryDeletePrevious = $@"DELETE FROM BS_TSHIRTS_SIZE WHERE TSHIRT_ID = @id";
+
+            string queryTShirt = $@"UPDATE BS_TSHIRTS SET 
+                                    NAME = @ModelName, 
+                                    DESCRIPTION = @ModelDescription, 
+                                    PRICE = @Price, 
+                                    QUANTITY_IN_STOCK = @QuantityInStock, 
+                                    IS_ACTIVE = @IsActive,
+                                    IMAGE_URL = @ImageUrl,
+                                    PROVIDER_ID = @ProviderId,
+                                    COLOR = @Color,
+                                    GENDER = @Gender
+                                    WHERE ID = @Id
+                                 ";
+
             try
             {
                 _uow.BeginTransaction();
-                await _session.Connection.ExecuteScalarAsync(query, currentModel, _session.Transaction);
+                await _session.Connection.ExecuteScalarAsync(queryTShirt, entity, _session.Transaction);
+                await _session.Connection.ExecuteScalarAsync(queryDeletePrevious, new {id}, _session.Transaction);
+
+                foreach (int size in separatedSizes)
+                {
+                    await _session.Connection.ExecuteScalarAsync(querySizes, new { size, id }, _session.Transaction);
+                }
+
                 _uow.Commit();
             }
             catch (Exception e)
@@ -333,7 +360,7 @@ namespace B_Skin_Api.Data.Repositories
         {
             var idExists = await GetById(id);
 
-            var query = $@"UPDATE BS_TSHIRTS
+            string query = $@"UPDATE BS_TSHIRTS
                             SET IMAGE_URL = @imageUrl
                             WHERE ID = @id
                             ";
@@ -356,7 +383,7 @@ namespace B_Skin_Api.Data.Repositories
 
         public async Task ExcludePermanently(long id)
         {
-            var query = "DELETE FROM BS_TSHIRTS WHERE ID = @id";
+            string query = "DELETE FROM BS_TSHIRTS WHERE ID = @id";
 
             try
             {
@@ -374,37 +401,45 @@ namespace B_Skin_Api.Data.Repositories
                 _uow.Dispose();
             }
         }
-        private async Task<TShirtModel> GetByName(string name, bool onlyActives = true)
+
+
+        public async Task<IEnumerable<SizeModel>> GetAvaiableSizes(long tshirtId)
+        {
+            string querySql = $@"
+                                SELECT DISTINCT [SIZE] FROM BS_SIZE BSS
+                                LEFT JOIN BS_TSHIRTS_SIZE BTS
+                                ON BSS.ID = BTS.SIZE_ID
+                                WHERE BTS.TSHIRT_ID = @tshirtId
+                                ";
+
+            return await _session.Connection.QueryAsync<SizeModel>(querySql, new { tshirtId }, _session.Transaction);
+        }
+        private async Task<TShirtDTO> GetCreatedRegister(TShirtModel model)
         {
 
-            var query = $@"
-                        SELECT
-                            BSTS.ID                      AS Id,
-                            BSTS.NAME                    AS ModelName,
-                            BSTS.DESCRIPTION             AS ModelDescription,
-                            BSTS.PRICE                   AS Price,
-                            BSTS.QUANTITY_IN_STOCK       AS QuantityInStock,
-                            BSTS.CREATED_ON              AS CreatedOn,
-                            BSTS.IS_ACTIVE               AS IsActive,
-                            BSTS.SIZE                  AS Size,
-                            BSTS.PROVIDER_ID             AS ProviderId,
-                            BSTS.COLOR                   AS Color,
-                            BSTS.GENDER                  AS Gender,
-                            BSP.NAME                     AS Brand,
-                            BSTS.IMAGE_URL               AS ImageUrl
-                        FROM
-                            BS_TSHIRTS BSTS
-                        LEFT JOIN 
-                            BS_PROVIDERS BSP 
-                                ON 
-                            BSTS.PROVIDER_ID = BSP.ID
-                        WHERE BSTS.NAME = @name
-                        ";
+            var result = await GetAll(new GetAllTShirtsQuery
+            {
+                Filters = null,
+                OnlyActives = true,
+                Pagination = null
+            });
 
-            if (onlyActives)
-                query += _onlyActivesQuery;
+            return result.FirstOrDefault(x => x.ModelName == model.ModelName && x.ModelDescription == model.ModelDescription && x.Color == model.Color);
+        }
 
-            return await _session.Connection.QueryFirstOrDefaultAsync<TShirtModel>(query, new { name }, _session.Transaction);
+        private IEnumerable<int> SeparateSizes(string sizes)
+        {
+            var separate = sizes.Trim().Split(',');
+            var separatedSizes = new List<int>();
+            foreach(var size in separate) 
+            {
+                separatedSizes.Add(int.Parse(size));
+            }
+
+            if (!separatedSizes.Any())
+                throw new Exception("Size(s) not found.");
+
+            return separatedSizes;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
         {
             await _providerRepository.ExcludePermanently(request.Id);
 
-            return Unit.Task.Result;
+            return await Unit.Task;
         }
     }
 }

@@ -40,6 +40,7 @@ namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
         [Required(ErrorMessage = "The field {0} cannot be empty")]
         public long ProviderTypeId { get; set; }
 
+        [Required(ErrorMessage = "The field {0} cannot be empty")]
         [StringLength(500, ErrorMessage = "The length of the field {0} must be {2} to {1} characters", MinimumLength = 5)]
         public string ImageUrl { get; set; }
     }

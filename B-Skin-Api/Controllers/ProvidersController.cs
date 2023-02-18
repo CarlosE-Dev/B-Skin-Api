@@ -59,14 +59,14 @@ namespace B_Skin_Api.Web.Controllers
         [HttpPut("remove/{id:long}")]
         public async Task<IActionResult> InactivateById(long id)
         {
-            await _mediator.Send(new UpdateProviderStatusCommand { Id = id, OperationType = EProviderStatusOperationType.Inactivate });
+            await _mediator.Send(new UpdateProviderStatusCommand { Id = id, OperationType = EStatusOperationType.Inactivate });
             return NoContent();
         }
 
         [HttpPut("reactivate/{id:long}")]
         public async Task<IActionResult> ReactivateById(long id)
         {
-            await _mediator.Send(new UpdateProviderStatusCommand { Id = id, OperationType = EProviderStatusOperationType.Reactivate });
+            await _mediator.Send(new UpdateProviderStatusCommand { Id = id, OperationType = EStatusOperationType.Reactivate });
             return NoContent();
         }
 

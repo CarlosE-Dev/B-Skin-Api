@@ -12,6 +12,7 @@ namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
         [JsonIgnore]
         public long Id { get; set; }
 
+        [Required(ErrorMessage = "The field {0} cannot be empty")]
         [StringLength(500, ErrorMessage = "The length of the field {0} must be {2} to {1} characters", MinimumLength = 5)]
         public string ImageUrl { get; set; }
     }
@@ -27,7 +28,7 @@ namespace B_Skin_Api.Domain.Models.Commands.ProviderCommands
         {
             await _providerRepository.UpdateImage(request.Id, request.ImageUrl);
 
-            return Unit.Task.Result;
+            return await Unit.Task;
         }
     }
 }
