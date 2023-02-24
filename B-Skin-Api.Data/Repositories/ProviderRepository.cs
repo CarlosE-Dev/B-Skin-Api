@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using B_Skin_Api.Data.Dapper;
+﻿using B_Skin_Api.Data.Dapper;
 using B_Skin_Api.Domain.Interfaces;
 using B_Skin_Api.Domain.Models;
 using B_Skin_Api.Domain.Models.Dtos;
