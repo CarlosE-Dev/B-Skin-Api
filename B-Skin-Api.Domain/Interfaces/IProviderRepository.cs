@@ -12,7 +12,7 @@ namespace B_Skin_Api.Domain.Interfaces
         Task<ProviderDTO> Create(Provider entity);
         Task InactivateById(long id);
         Task ReactivateById(long id);
-        Task Update(Provider entity);
+        Task Update(Provider entity, string providerTypeName);
         Task UpdateImage(long id, string imageUrl);
         Task ExcludePermanently(long id);
     }

@@ -178,11 +178,13 @@ namespace B_Skin_Api.Data.Repositories
             return createdEntity;
         }
 
-        public async Task Update(Provider entity)
+        public async Task Update(Provider entity, string providerTypeName)
         {
             var currentModel = await GetById(entity.Id, false);
 
             if (currentModel == null) throw new Exception("Provider not found.");
+
+            var providerTypeId = await GetProviderTypeIdByName(providerTypeName);
 
             var query = $@"UPDATE BS_PROVIDERS
                             SET 
@@ -193,7 +195,7 @@ namespace B_Skin_Api.Data.Repositories
                                 COUNTRY =           @Country,
                                 EMAIL =             @Email,
                                 PHONE =             @Phone,
-                                PROVIDER_TYPE =     @ProviderTypeId,
+                                PROVIDER_TYPE =     {providerTypeId},
                                 IMAGE_URL =         @ImageUrl
                             WHERE ID = @Id
                             ";
@@ -212,6 +214,20 @@ namespace B_Skin_Api.Data.Repositories
             {
                 _uow.Dispose();
             }
+        }
+
+        private async Task<long> GetProviderTypeIdByName(string providerTypeName)
+        {
+            var query = $@"SELECT ID
+                            FROM BS_PROVIDER_TYPE
+                            WHERE [TYPE] = @ProviderTypeName";
+
+            var result = await _session.Connection.QueryFirstOrDefaultAsync<long>(query, new { providerTypeName }, _session.Transaction);
+
+            if (result == null)
+                throw new Exception("Provider Type not found");
+
+            return result;
         }
 
         public async Task ExcludePermanently(long id)
