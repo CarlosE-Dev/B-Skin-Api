@@ -181,10 +181,10 @@ namespace B_Skin_Api.Data.Repositories
         public async Task Update(Provider entity, string providerTypeName)
         {
             var currentModel = await GetById(entity.Id, false);
-
             if (currentModel == null) throw new Exception("Provider not found.");
 
             var providerTypeId = await GetProviderTypeIdByName(providerTypeName);
+            if (providerTypeId == null) throw new Exception("Provider Type not found.");
 
             var query = $@"UPDATE BS_PROVIDERS
                             SET 
@@ -214,20 +214,6 @@ namespace B_Skin_Api.Data.Repositories
             {
                 _uow.Dispose();
             }
-        }
-
-        private async Task<long> GetProviderTypeIdByName(string providerTypeName)
-        {
-            var query = $@"SELECT ID
-                            FROM BS_PROVIDER_TYPE
-                            WHERE [TYPE] = @ProviderTypeName";
-
-            var result = await _session.Connection.QueryFirstOrDefaultAsync<long>(query, new { providerTypeName }, _session.Transaction);
-
-            if (result == null)
-                throw new Exception("Provider Type not found");
-
-            return result;
         }
 
         public async Task ExcludePermanently(long id)
@@ -274,6 +260,17 @@ namespace B_Skin_Api.Data.Repositories
             {
                 _uow.Dispose();
             }
+        }
+
+        private async Task<long?> GetProviderTypeIdByName(string providerTypeName)
+        {
+            var query = $@"SELECT ID
+                            FROM BS_PROVIDER_TYPE
+                            WHERE [TYPE] = @ProviderTypeName";
+
+            var result = await _session.Connection.QueryFirstOrDefaultAsync<long?>(query, new { providerTypeName }, _session.Transaction);
+
+            return result;
         }
 
         private async Task<ProviderDTO> GetByName(string name, bool onlyActives = true)

@@ -406,10 +406,12 @@ namespace B_Skin_Api.Data.Repositories
         public async Task<IEnumerable<SizeModel>> GetAvaiableSizes(long tshirtId)
         {
             string querySql = $@"
-                                SELECT DISTINCT [SIZE] FROM BS_SIZE BSS
+                                SELECT DISTINCT [SIZE], BSS.ID 
+                                FROM BS_SIZE BSS
                                 LEFT JOIN BS_TSHIRTS_SIZE BTS
                                 ON BSS.ID = BTS.SIZE_ID
                                 WHERE BTS.TSHIRT_ID = @tshirtId
+                                ORDER BY BSS.ID
                                 ";
 
             return await _session.Connection.QueryAsync<SizeModel>(querySql, new { tshirtId }, _session.Transaction);
