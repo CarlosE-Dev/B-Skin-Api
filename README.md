@@ -55,6 +55,7 @@
   Open the file DbSession.cs ( you can open as NotePad, NotePad++ or any code editor you want )
   
   Then modify the connection string to your SQL Server configuration
+  ( Don't forget to keep the same database name, so that the scripts and queries can work correctly )
   
   <div align="center">
     <img src="https://media.discordapp.net/attachments/1050461916474122251/1090483849743585421/image.png"></img>
