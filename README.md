@@ -5,7 +5,7 @@
   and can be accessed [here.](https://github.com/analuizadev/B-skin)
   The implementation is composed of a 3-tier architecture, where the focus is on building as quickly as possible to unlock and enable front-end building, but without losing quality in the process.
   
-  Developed with C#, ASP .NET Core, SQL Server, Dapper using a 3-layer architeture with Web API's, CQRS, UnitOfWork and Repository Pattern.
+  Developed with C#, ASP .NET Core, SQL Server, Dapper using a 3-layer architeture with CQRS, UnitOfWork and Repository Pattern.
   
   <div align="center">
     <img src="https://media.discordapp.net/attachments/1050461916474122251/1090459415016124516/image.png"></img>
