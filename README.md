@@ -1,7 +1,7 @@
 <div>
   
   ## About B-Skin API
-  B-Skin API was developed with the focus on ensuring the functioning of the B-Skin website, which was developed by [@analuizadev](https://github.com/analuizadev) 
+  B-Skin API was developed with the focus on ensuring the functioning of the B-Skin website, a clothing shop focused in T-Shirts which was developed by [@analuizadev](https://github.com/analuizadev) 
   and can be accessed [here.](https://github.com/analuizadev/B-skin)
   The implementation is composed of a 3-tier architecture, where the focus is on building as quickly as possible to unlock and enable front-end building, but without losing quality in the process.
   
