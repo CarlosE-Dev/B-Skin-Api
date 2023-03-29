@@ -55,6 +55,7 @@
   Open the file DbSession.cs ( you can open as NotePad, NotePad++ or any code editor you want )
   
   Then modify the connection string to your SQL Server configuration
+
   ( Don't forget to keep the same database name, so that the scripts and queries can work correctly )
   
   <div align="center">
