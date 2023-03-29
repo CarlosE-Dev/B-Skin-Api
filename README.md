@@ -56,9 +56,9 @@
   
   Then modify the connection string to your SQL Server configuration
   
-  ```
-  cd "C:\Dev\B-Skin-Api\B-Skin-Api"
-  ```
+  <div align="center">
+    <img src="https://media.discordapp.net/attachments/1050461916474122251/1090483849743585421/image.png"></img>
+  </div>
   
   ### Step 3: Run the API
   With PowerShell or Command Prompt navigate to API Folder as the following example:
