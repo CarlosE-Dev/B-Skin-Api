@@ -36,16 +36,31 @@
   - SQL Server
   - Any Database Workbench
   - PowerShell or Command Prompt
+  - NotePad or Any Code Editor
   ```
   
-  ### Step 1: Database
-  Populating the database
+  ### Step 1: Create Database
+  Creating and populating the database
   
   Open your Database Workbench and execute in sequence the following [script.](https://github.com/CarlosE-Dev/B-Skin-Api/blob/master/B-Skin-Api.Data/Scripts/Scripts.txt)
   This will create the database structure and also insert the default records
   
+  ### Step 2: Configure the database connection
+  Editing the connection string
   
-  ### Step 2: Running the API
+  In your computer file explorer, navigate to the folder B-Skin-Api.Data, and then navigate to the folder called Dapper
+
+  Path Example: C:\Dev\B-Skin-Api\B-Skin-Api.Data\Dapper
+  
+  Open the file DbSession.cs ( you can open as NotePad, NotePad++ or any code editor you want )
+  
+  Then modify the connection string to your SQL Server configuration
+  
+  ```
+  cd "C:\Dev\B-Skin-Api\B-Skin-Api"
+  ```
+  
+  ### Step 3: Run the API
   With PowerShell or Command Prompt navigate to API Folder as the following example:
   
   ```
